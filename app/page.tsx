@@ -51,7 +51,7 @@ const Navbar = ({ isScrolled }: { isScrolled: boolean }) => (
     </div>
   </div>
 
-  {/* ACADEMICS MEGA MENU - NOTE: Removed 'relative' from this parent container */}
+  {/* ACADEMICS MEGA MENU */}
   <div className="group h-[60px] flex items-center">
     <Link href="#" className="hover:text-gray-300 transition-colors h-full flex items-center">
       Academics
@@ -61,7 +61,7 @@ const Navbar = ({ isScrolled }: { isScrolled: boolean }) => (
     <div className="absolute top-[60px] left-0 right-0 w-full bg-[#0f4a8a] border-t border-blue-800 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 py-10 px-4 sm:px-6 lg:px-8 text-left normal-case tracking-normal font-normal">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
         
-        {/* Column 1: Faculties */}
+        {/*Faculties */}
         <div>
           <h3 className="text-[#52a8e8] text-[17px] font-bold pb-2 border-b border-blue-700/50 mb-4 tracking-wide">
             Faculties
@@ -75,7 +75,7 @@ const Navbar = ({ isScrolled }: { isScrolled: boolean }) => (
           </div>
         </div>
 
-        {/* Column 2: Information */}
+        {/*Information */}
         <div>
           <h3 className="text-[#52a8e8] text-[17px] font-bold pb-2 border-b border-blue-700/50 mb-4 tracking-wide">
             Information
@@ -289,22 +289,7 @@ const HeroSection = () => {
 };
 
 
-const FacultiesSection = () => (
-  <div className="bg-gray-50 py-12">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 className="text-2xl font-bold text-[#0f4a8a] mb-8 text-center uppercase">Our Faculties</h2>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
-        {['Faculty of Science & Technology', 'Faculty of Engineering', 'Faculty of Business Administration', 'Faculty of Arts & Social Sciences'].map((faculty, idx) => (
-          <div key={idx} className="bg-white p-6 border-t-4 border-[#0f4a8a] shadow hover:shadow-md transition-shadow cursor-pointer">
-            <h3 className="font-semibold text-gray-800">{faculty}</h3>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-);
-
-const NewsAndNotices = () => {
+const FindYourProgramAndNotices = () => {
   const notices = [
     { date: "June 01", title: "Final Term Examination Schedule - Spring 2026" },
     { date: "May 28", title: "Notice Regarding Payment of Tuition Fees for Summer 2026" },
@@ -319,7 +304,7 @@ const NewsAndNotices = () => {
       {/* Latest Events Section */}
       <div className="lg:col-span-2">
         <div className="flex justify-between items-center border-b-2 border-[#0f4a8a] mb-6 pb-2">
-          <h2 className="text-2xl font-bold text-[#0f4a8a] uppercase">News & Events</h2>
+          <h2 className="text-2xl font-bold text-[#0f4a8a] uppercase">Find Your Program</h2>
           <Link href="#" className="text-sm text-gray-600 hover:text-[#0f4a8a]">View All</Link>
         </div>
         
@@ -351,7 +336,7 @@ const NewsAndNotices = () => {
       {/* Notice Board */}
       <div>
         <div className="flex justify-between items-center border-b-2 border-[#0f4a8a] mb-6 pb-2">
-          <h2 className="text-2xl font-bold text-[#0f4a8a] uppercase">Notice Board</h2>
+          <h2 className="text-2xl font-bold text-[#0f4a8a] uppercase">Notice</h2>
         </div>
         <div className="bg-white border border-gray-200 flex flex-col h-[420px]">
           <div className="flex-grow overflow-y-auto p-4 flex flex-col gap-4">
@@ -422,7 +407,94 @@ const Footer = () => (
     </div>
   </footer>
 );
+const ImportantLinksBar = () => {
+  return (
+    <div className="bg-[#161616] border-b border-zinc-800 w-full py-5 select-none">
+      <div className="max-w-7xl mx-auto px-4 flex flex-wrap md:flex-nowrap items-center justify-center gap-y-6 md:gap-x-7 text-center">
+        
+        {/* Title Label */}
+        <div className="text-zinc-400 font-bold text-xs md:text-[13px] tracking-widest uppercase px-2 w-full md:w-auto">
+          Important Links
+        </div>
 
+ 
+        <span className="text-zinc-700 hidden md:inline text-xl font-light">|</span>
+
+        {/* Sustainability Link*/}
+        <Link href="#" className="flex flex-col items-center group flex-1 md:flex-initial min-w-[120px]">
+          <div className="h-12 w-auto mb-1.5 flex items-center justify-center">
+            <img 
+              src="/images/depositphotos.jpg" 
+              alt="Sustainability Logo" 
+              className="h-full object-contain group-hover:scale-105 transition-transform duration-200"
+              onError={(e) => {
+                // Fallback
+                e.currentTarget.src = "https://via.placeholder.com/48x48?text=SDG";
+              }}
+            />
+          </div>
+          <span className="text-[#52a8e8] group-hover:text-blue-300 transition-colors font-black text-xs md:text-[13px] tracking-wider uppercase leading-none">
+            Sustainability
+          </span>
+        </Link>
+
+ 
+        <span className="text-zinc-700 hidden md:inline text-xl font-light">|</span>
+
+        {/* Newsletter Link*/}
+        <Link href="#" className="flex flex-col items-center group flex-1 md:flex-initial min-w-[120px]">
+          <div className="h-12 w-auto mb-1.5 flex items-center justify-center">
+            <img 
+              src="/images/newsletter-logo.png" 
+              alt="AIUB Newsletter" 
+              className="h-full object-contain group-hover:scale-105 transition-transform duration-200"
+              onError={(e) => {
+                e.currentTarget.src = "https://via.placeholder.com/60x48?text=NEWS";
+              }}
+            />
+          </div>
+          <span className="text-[#52a8e8] group-hover:text-blue-300 transition-colors font-black text-xs md:text-[13px] tracking-wider uppercase leading-none">
+            AIUB Newsletter
+          </span>
+        </Link>
+
+ 
+        <span className="text-zinc-700 hidden md:inline text-xl font-light">|</span>
+
+        {/* Erasmus Soho Project */}
+        <Link href="#" className="group flex flex-col justify-center items-center px-3 min-w-[140px]">
+          <span className="text-[#52a8e8] group-hover:text-blue-300 transition-colors font-black text-xs md:text-[13px] tracking-widest uppercase text-center leading-tight">
+            Erasmus<br />Soho<br />Project
+          </span>
+        </Link>
+
+ 
+        <span className="text-zinc-700 hidden md:inline text-xl font-light">|</span>
+
+        {/* MCU 2020 Project */}
+        <Link href="#" className="group flex flex-col justify-center items-center px-3 min-w-[120px]">
+          <span className="text-[#52a8e8] group-hover:text-blue-300 transition-colors font-black text-xs md:text-[13px] tracking-widest uppercase text-center leading-tight">
+            MCU<br />2020<br />Project
+          </span>
+        </Link>
+
+ 
+        <span className="text-zinc-700 hidden md:inline text-xl font-light">|</span>
+
+        {/* Responsible Futures International */}
+        <Link href="#" className="group flex flex-col justify-center items-center px-3 min-w-[160px]">
+          <span className="text-[#52a8e8] group-hover:text-blue-300 transition-colors font-black text-xs md:text-[13px] tracking-widest uppercase text-center leading-tight">
+            Responsible<br />Futures<br />International
+          </span>
+        </Link>
+
+        {/* Optional Final Divider */}
+        <span className="text-zinc-700 hidden md:inline text-xl font-light">|</span>
+
+      </div>
+    </div>
+  );
+};
 export default function Home() {
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -450,9 +522,9 @@ export default function Home() {
         </div>
       </header>
       <HeroSection />
-      <FacultiesSection />
       <main className="flex-grow">
-        <NewsAndNotices />
+        <ImportantLinksBar />
+        <FindYourProgramAndNotices/>
       </main>
       <Footer />
     </div>
