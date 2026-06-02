@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-fade';
+
 import { Autoplay,Navigation, EffectFade } from 'swiper/modules';
 
 const TopHeader = ({ isScrolled }: { isScrolled: boolean }) => (
@@ -318,7 +319,7 @@ const FindYourProgramAndNotices = () => {
           />
 
 
-          {/* Top Title: YOUR PROGRAM */}
+          {/* Top Title */}
           <div className="relative z-10 text-center">
             <h3 className="text-[#edf1da] font-black tracking-[0.25em] text-sm md:text-base uppercase select-none">
               YOUR PROGRAM
@@ -512,6 +513,22 @@ const ImportantLinksBar = () => {
     </div>
   );
 };
+
+const NewsAndEvents = () => {
+  return (
+    <div className="lg:col-span-2 flex flex-col justify-end">
+      <div className="flex items-baseline select-none relative">
+        <span className="text-[4rem] md:text-[5.5rem] font-bold text-[#0f4a8a] opacity-75 leading-none tracking-normal font-sans">
+          News
+        </span>
+        <h3 className="text-[#0f4a8a] font-black tracking-[0.25em] text-sm md:text-base uppercase ml-3 relative z-10">
+          And Events
+        </h3>
+      </div>
+    </div>
+  );
+};
+
 export default function Home() {
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -542,6 +559,7 @@ export default function Home() {
       <main className="flex-grow">
         <ImportantLinksBar />
         <FindYourProgramAndNotices/>
+        <NewsAndEvents/>
       </main>
       <Footer />
     </div>
