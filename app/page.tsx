@@ -95,13 +95,13 @@ const Navbar = ({ isScrolled }: { isScrolled: boolean }) => (
     </div>
   </div>
 
-  {/* ACADEMICS MEGA MENU */}
+  {/* ACADEMICS MENU */}
   <div className="group h-[60px] flex items-center">
     <Link href="#" className="hover:text-gray-300 transition-colors h-full flex items-center">
       Academics
     </Link>
     
-    {/* FULL WIDTH MEGA MENU CONTAINER */}
+    {/*  MENU CONTAINER */}
     <div className="absolute top-[60px] left-0 right-0 w-full bg-[#053d7b] border-t border-blue-800 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 py-10 px-4 sm:px-6 lg:px-8 text-left normal-case tracking-normal font-normal">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
         
@@ -788,7 +788,7 @@ const Faculties = () => {
               }}
             />
 
-            {/* Dark Linear Protecting Gradient Overlay */}
+            {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent transition-all duration-300 group-hover:via-black/50" />
 
             {/* Content Text Container Layout */}
@@ -797,13 +797,13 @@ const Faculties = () => {
               <span className="text-white/60 text-xs font-mono font-bold tracking-widest uppercase mb-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                 {faculty.shortName}
               </span>
-
-              {/* Faculty Descriptive Title */}
+              
+              {/* Descriptive Title */}
               <h3 className="text-white text-lg md:text-xl font-bold tracking-wide leading-snug group-hover:text-blue-400 transition-colors duration-300">
                 {faculty.name}
               </h3>
 
-              {/* Graphical line decorator that stretches out on mouse entry */}
+              {/* line*/}
               <div className="w-8 h-[3px] bg-[#0f4a8a] mt-4 rounded-full w-8 group-hover:w-16 transition-all duration-300" />
             </div>
           </div>
