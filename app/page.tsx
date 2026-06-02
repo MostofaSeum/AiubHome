@@ -9,6 +9,48 @@ import 'swiper/css/effect-fade';
 
 import { Autoplay,Navigation, EffectFade } from 'swiper/modules';
 import { gsap } from 'gsap';
+import { motion } from 'framer-motion';
+
+const TypingText = ({ text, className }: { text: string; className?: string }) => {
+  const characters = Array.from(text);
+  
+  const containerVariants = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.06,
+      },
+    },
+  };
+
+  const childVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut" as const,
+      },
+    },
+  };
+
+  return (
+    <motion.span
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      className={`${className} inline-flex flex-wrap`}
+    >
+      {characters.map((char, index) => (
+        <motion.span key={index} variants={childVariants} className="inline-block">
+          {char === " " ? "\u00A0" : char}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+};
 
 const TopHeader = ({ isScrolled }: { isScrolled: boolean }) => (
   <div className={`transition-colors duration-300 text-[#52a8e8] text-[13px] py-1.5 px-4 md:px-8 flex justify-between items-center ${isScrolled ? 'bg-[#2c2c2c]' : 'bg-[#2c2c2c]/40 backdrop-blur-[1px] border-b border-white/5'}`}>
@@ -235,6 +277,16 @@ const HeroSection = () => {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-gray-950">
+      {/* Zoom Effect*/}
+      <style>{`
+        .swiper-slide-hero img {
+          transform: scale(1);
+          transition: transform 15000ms cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+        .swiper-slide-hero.swiper-slide-active img {
+          transform: scale(1.08);
+        }
+      `}</style>
       <Swiper
         spaceBetween={0}
         slidesPerView={1}
@@ -251,7 +303,7 @@ const HeroSection = () => {
         onSlideChange={(swiper) => setActiveIndex(swiper.realIndex + 1)}
       >
         {slides.map((slide, idx) => (
-          <SwiperSlide key={idx} className="w-full h-full relative">
+          <SwiperSlide key={idx} className="w-full h-full relative swiper-slide-hero">
             <img 
               src={slide.url} 
               alt={`AIUB Campus View ${idx + 1}`} 
@@ -304,28 +356,26 @@ const FindYourProgramAndNotices = () => {
     <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-10">
       
       {/* Find Your Program Section */}
-      <div className="lg:col-span-2 flex flex-col justify-end">
-        <div className="relative h-[4.5rem] z-0 select-none">
-          <span className="text-[7rem] md:text-[9.5rem] font-bold text-[#52a8e8] opacity-75 absolute -bottom-7 left-0 leading-none tracking-normal font-sans">
-            Find
-          </span>
+      <div className="lg:col-span-2 flex flex-col justify-between">
+        {/* Section Title aligned with Notice Board Header */}
+        <div className="flex items-baseline select-none relative mb-6 border-b-2 border-[#0f4a8a] pb-2">
+          <TypingText 
+            text="Find" 
+            className="text-[4rem] md:text-[5.5rem] font-bold text-[#0f4a8a] opacity-75 leading-none tracking-normal font-sans" 
+          />
+          <TypingText 
+            text="Your Program" 
+            className="text-[#0f4a8a] font-black tracking-[0.25em] text-sm md:text-base uppercase ml-3 relative z-10" 
+          />
         </div>
 
-        <div className="relative bg-zinc-950 border border-zinc-800 rounded-sm overflow-hidden h-[420px] shadow-lg flex flex-col justify-between p-6 z-10 group">
+        <div className="relative bg-zinc-950 border border-zinc-800 rounded-sm overflow-hidden h-[420px] shadow-lg flex flex-col justify-end p-6 z-10 group">
           {/* Background Student Image */}
           <img 
             src="images/find-your-program.webp" 
             alt="Find Your Program" 
             className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 "
           />
-
-
-          {/* Top Title */}
-          <div className="relative z-10 text-center">
-            <h3 className="text-[#edf1da] font-black tracking-[0.25em] text-sm md:text-base uppercase select-none">
-              YOUR PROGRAM
-            </h3>
-          </div>
 
           {/* Bottom Links: Undergraduate & Graduate */}
           <div className="relative z-10 w-full px-4 md:px-8 pb-4">
@@ -355,7 +405,9 @@ const FindYourProgramAndNotices = () => {
       {/* Notice Board */}
       <div>
         <div className="flex justify-between items-center border-b-2 border-[#0f4a8a] mb-6 pb-2">
-          <h2 className="text-2xl font-bold text-[#0f4a8a] uppercase">Notice</h2>
+          <h2 className="text-2xl font-bold text-[#0f4a8a] uppercase">
+            <TypingText text="Notice" />
+          </h2>
         </div>
         <div className="bg-white border border-gray-200 flex flex-col h-[420px]">
           <div className="flex-grow overflow-y-auto p-4 flex flex-col gap-4">
@@ -654,12 +706,14 @@ const NewsAndEvents = () => {
       {/* Title as it was before */}
       <div className="max-w-7xl mx-auto flex justify-between items-center mb-10">
         <div className="flex items-baseline select-none relative">
-          <span className="text-[4rem] md:text-[5.5rem] font-bold text-[#0f4a8a] opacity-75 leading-none tracking-normal font-sans">
-            News
-          </span>
-          <h3 className="text-[#0f4a8a] font-black tracking-[0.25em] text-sm md:text-base uppercase ml-3 relative z-10">
-            And Events
-          </h3>
+          <TypingText 
+            text="News" 
+            className="text-[4rem] md:text-[5.5rem] font-bold text-[#0f4a8a] opacity-75 leading-none tracking-normal font-sans" 
+          />
+          <TypingText 
+            text="And Events" 
+            className="text-[#0f4a8a] font-black tracking-[0.25em] text-sm md:text-base uppercase ml-3 relative z-10" 
+          />
         </div>
       </div>
 
@@ -710,9 +764,10 @@ const Faculties = () => {
     <section className="w-full py-16 bg-white">
       <div className="max-w-7xl mx-auto flex justify-center items-center mb-12">
         <div className="flex items-baseline select-none relative">
-          <span className="text-[4rem] md:text-[5.5rem] font-bold text-[#0f4a8a] opacity-75 leading-none tracking-normal font-sans">
-            Faculties
-          </span> 
+          <TypingText 
+            text="Faculties" 
+            className="text-[4rem] md:text-[5.5rem] font-bold text-[#0f4a8a] opacity-75 leading-none tracking-normal font-sans" 
+          />
         </div>
       </div>
 
