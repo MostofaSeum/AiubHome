@@ -6,23 +6,46 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-fade';
 import { Autoplay, Navigation, EffectFade } from 'swiper/modules';
+import { title } from 'process';
 
 export default function HeroSection() {
   const [activeIndex, setActiveIndex] = React.useState(1);
 
   const slides = [
-    { url: '/Images/Fig-1.webp'},
-    { url: '/Images/Fig-2.webp'},
-    { url: '/Images/Fig-3.webp'},
-    { url: '/Images/Fig-4.webp'},
-    { url: '/Images/Fig-5.webp'},
-    { url: '/Images/Fig-6.webp'},
-    { url: '/Images/Fig-7.webp'},
+    { 
+      url: '/Images/Fig-1.webp',
+
+    },
+    { 
+      url: '/Images/Fig-2.webp' 
+    },
+    { 
+      url: '/Images/Fig-3.webp',
+      tag: 'WORLD - CLASS',
+      title: 'INFRASTRUCTURE'
+    },
+    { 
+      url: '/Images/Fig-4.webp' 
+    },
+    { 
+      url: '/Images/Fig-5.webp',
+      tag: 'TECH - CENTRIC',
+      title: 'TEACHING'
+    },
+    { 
+      url: '/Images/Fig-6.webp' 
+    },
+    { 
+      url: '/Images/Fig-7.webp' ,
+      tag: 'URBAN',
+      title: 'GREEN CAMPUS'
+
+    },
   ];
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-gray-950">
-      {/* Zoom Effect*/}
+      {/* Zoom Effect & Text Slide In Animation */}
       <style>{`
         .swiper-slide-hero img {
           transform: scale(1);
@@ -30,6 +53,16 @@ export default function HeroSection() {
         }
         .swiper-slide-hero.swiper-slide-active img {
           transform: scale(1.08);
+        }
+        .hero-text-container {
+          opacity: 0;
+          transform: translateY(50px);
+          transition: transform 1200ms cubic-bezier(0.25, 1, 0.5, 1), opacity 1200ms ease;
+          transition-delay: 200ms;
+        }
+        .swiper-slide-hero.swiper-slide-active .hero-text-container {
+          opacity: 1;
+          transform: translateY(0);
         }
       `}</style>
       <Swiper
@@ -55,7 +88,21 @@ export default function HeroSection() {
               className="w-full h-full object-cover"
             />
             {/* Dark bottom & top overlay to keep text legible */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/40 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60 pointer-events-none" />
+
+            {/* Slide Text Content Overlay */}
+            {slide.tag && slide.title && (
+              <div className="absolute inset-0 flex items-end justify-start max-w-7xl mx-auto px-8 md:px-16 pb-24 md:pb-36 z-20 pointer-events-none">
+                <div className="hero-text-container select-none text-left">
+                  <span className="text-[#52a8e8] text-sm md:text-xl font-bold tracking-[0.25em] uppercase block">
+                    {slide.tag}
+                  </span>
+                  <h1 className="text-white text-5xl md:text-7xl font-black tracking-wide mt-3 uppercase leading-none">
+                    {slide.title}
+                  </h1>
+                </div>
+              </div>
+            )}
           </SwiperSlide>
         ))}
       </Swiper>
@@ -86,3 +133,4 @@ export default function HeroSection() {
     </div>
   );
 }
+
