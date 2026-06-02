@@ -8,6 +8,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/effect-fade';
 
 import { Autoplay,Navigation, EffectFade } from 'swiper/modules';
+import { gsap } from 'gsap';
 
 const TopHeader = ({ isScrolled }: { isScrolled: boolean }) => (
   <div className={`transition-colors duration-300 text-[#52a8e8] text-[13px] py-1.5 px-4 md:px-8 flex justify-between items-center ${isScrolled ? 'bg-[#2c2c2c]' : 'bg-[#2c2c2c]/40 backdrop-blur-[1px] border-b border-white/5'}`}>
@@ -514,20 +515,163 @@ const ImportantLinksBar = () => {
   );
 };
 
+interface GridMotionProps {
+  items?: (React.ReactNode)[];
+  gradientColor?: string;
+}
+
+const GridMotion: React.FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }) => {
+  const gridRef = React.useRef<HTMLDivElement>(null);
+  const rowRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+  const autoXRef = React.useRef<number>(0);
+  const isHoveredRef = React.useRef<boolean>(false);
+
+  const totalItems = 28;
+  const defaultItems = Array.from({ length: totalItems }, (_, index) => `Item ${index + 1}`);
+  const combinedItems = items.length > 0 ? items.slice(0, totalItems) : defaultItems;
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    gsap.ticker.lagSmoothing(0);
+
+    const updateMotion = (): void => {
+      // Only advance the continuous motion if the cursor is NOT hovering the grid
+      if (!isHoveredRef.current) {
+        autoXRef.current += 0.8;
+      }
+
+      const maxMoveAmount = 300;
+      const baseDuration = 0.8;
+      const inertiaFactors = [0.6, 0.4, 0.3, 0.2];
+
+      rowRefs.current.forEach((row, index) => {
+        if (row) {
+          const direction = index % 2 === 0 ? 1 : -1;
+          // Map to a smooth sine-wave cycle for clean auto-scrolling
+          const moveAmount = (Math.sin(autoXRef.current * 0.008) * (maxMoveAmount / 2)) * direction;
+
+          gsap.to(row, {
+            x: moveAmount,
+            duration: baseDuration + inertiaFactors[index % inertiaFactors.length],
+            ease: 'power3.out',
+            overwrite: 'auto'
+          });
+        }
+      });
+    };
+
+    const removeAnimationLoop = gsap.ticker.add(updateMotion);
+
+    return () => {
+      removeAnimationLoop();
+    };
+  }, []);
+
+  return (
+    <div 
+      ref={gridRef} 
+      className="h-full w-full overflow-hidden"
+      onMouseEnter={() => { isHoveredRef.current = true; }}
+      onMouseLeave={() => { isHoveredRef.current = false; }}
+    >
+      <section
+        className="w-full h-full overflow-hidden relative flex items-center justify-center"
+        style={{
+          background: `radial-gradient(circle, ${gradientColor} 0%, transparent 100%)`
+        }}
+      >
+        <div className="absolute inset-0 pointer-events-none z-[4] bg-[length:250px]"></div>
+        <div className="gap-4 flex-none relative w-[150vw] h-[150vh] grid grid-rows-4 grid-cols-1 rotate-[-15deg] origin-center z-[2]">
+          {Array.from({ length: 4 }, (_, rowIndex) => (
+            <div
+              key={rowIndex}
+              className="grid gap-4 grid-cols-7"
+              style={{ willChange: 'transform, filter' }}
+              ref={el => {
+                if (el) rowRefs.current[rowIndex] = el;
+              }}
+            >
+              {Array.from({ length: 7 }, (_, itemIndex) => {
+                const content = combinedItems[rowIndex * 7 + itemIndex];
+                return (
+                  <div key={itemIndex} className="relative">
+                    <div className="relative w-full h-full overflow-hidden rounded-[10px] bg-[#111] flex items-center justify-center text-white text-[1.5rem] min-h-[120px]">
+                      {typeof content === 'string' && content.startsWith('http') ? (
+                        <div
+                          className="w-full h-full bg-cover bg-center absolute top-0 left-0"
+                          style={{ backgroundImage: `url(${content})` }}
+                        ></div>
+                      ) : (
+                        <div className="p-4 text-center z-[1]">{content}</div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+        <div className="relative w-full h-full top-0 left-0 pointer-events-none"></div>
+      </section>
+    </div>
+  );
+};
+
+const newsAndEventsImages = [
+  "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1523580494863-6f30312245d5?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1558021211-6d1403321394?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1552581230-c01591d58edd?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1577896851231-70ee18881754?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1516534775068-ba3e84589d90?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1560785496-3c9d2787718e?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=600&q=80"
+];
+
 const NewsAndEvents = () => {
   return (
-    <div className="lg:col-span-2 flex flex-col justify-end">
-      <div className="flex items-baseline select-none relative">
-        <span className="text-[4rem] md:text-[5.5rem] font-bold text-[#0f4a8a] opacity-75 leading-none tracking-normal font-sans">
-          News
-        </span>
-        <h3 className="text-[#0f4a8a] font-black tracking-[0.25em] text-sm md:text-base uppercase ml-3 relative z-10">
-          And Events
-        </h3>
+    <div className="relative w-full bg-[#faf6f6ff] border-t border-zinc-900 overflow-hidden py-16 px-4 sm:px-6 lg:px-8">
+      {/* Title as it was before */}
+      <div className="max-w-7xl mx-auto flex justify-between items-center mb-10">
+        <div className="flex items-baseline select-none relative">
+          <span className="text-[4rem] md:text-[5.5rem] font-bold text-[#0f4a8a] opacity-75 leading-none tracking-normal font-sans">
+            News
+          </span>
+          <h3 className="text-[#0f4a8a] font-black tracking-[0.25em] text-sm md:text-base uppercase ml-3 relative z-10">
+            And Events
+          </h3>
+        </div>
+      </div>
+
+      {/* GridMotion Component inside */}
+      <div className="w-full h-[500px] relative z-10">
+        <GridMotion items={newsAndEventsImages} gradientColor="#faf6f6ff" />
       </div>
     </div>
   );
 };
+
+
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = React.useState(false);
