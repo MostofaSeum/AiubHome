@@ -39,7 +39,7 @@ const Navbar = ({ isScrolled }: { isScrolled: boolean }) => (
     <Link href="#" className="hover:text-gray-300 transition-colors h-full flex items-center">
       About
     </Link>
-    <div className="absolute top-[60px] left-0 w-64 bg-[#1c3352]/95 border border-slate-700/40 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col text-sm font-medium normal-case tracking-normal text-left z-50">
+    <div className="absolute top-[60px] left-0 w-64 bg-[#053d7b]/95 border border-slate-700/40 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col text-sm font-medium normal-case tracking-normal text-left z-50">
       <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">Overview</Link>
       <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">General Information</Link>
       <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">Rules of Campus Entry</Link>
@@ -58,7 +58,7 @@ const Navbar = ({ isScrolled }: { isScrolled: boolean }) => (
     </Link>
     
     {/* FULL WIDTH MEGA MENU CONTAINER */}
-    <div className="absolute top-[60px] left-0 right-0 w-full bg-[#0f4a8a] border-t border-blue-800 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 py-10 px-4 sm:px-6 lg:px-8 text-left normal-case tracking-normal font-normal">
+    <div className="absolute top-[60px] left-0 right-0 w-full bg-[#053d7b] border-t border-blue-800 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 py-10 px-4 sm:px-6 lg:px-8 text-left normal-case tracking-normal font-normal">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
         
         {/*Faculties */}
@@ -153,7 +153,7 @@ const Navbar = ({ isScrolled }: { isScrolled: boolean }) => (
     <Link href="#" className="hover:text-gray-300 transition-colors h-full flex items-center">
       Administration
     </Link>
-    <div className="absolute top-[60px] left-0 w-64 bg-[#1c3352]/95 border border-slate-700/40 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col text-sm font-medium normal-case tracking-normal text-left z-50">
+    <div className="absolute top-[60px] left-0 w-64 bg-[#053d7b]/95 border border-slate-700/40 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col text-sm font-medium normal-case tracking-normal text-left z-50">
       <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">The Vice Chancellor</Link>
       <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">The Pro Vice Chancellor</Link>
       <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">The Chairman</Link>
@@ -162,12 +162,12 @@ const Navbar = ({ isScrolled }: { isScrolled: boolean }) => (
       <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">Offices</Link>
     </div>
   </div>
-            {/* ADMINSTRATION */}
+            {/* Research */}
   <div className="relative group h-[60px] flex items-center">
     <Link href="#" className="hover:text-gray-300 transition-colors h-full flex items-center">
       Research
     </Link>
-    <div className="absolute top-[60px] left-0 w-64 bg-[#1c3352]/95 border border-slate-700/40 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col text-sm font-medium normal-case tracking-normal text-left z-50">
+    <div className="absolute top-[60px] left-0 w-64 bg-[#053d7b]/95 border border-slate-700/40 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col text-sm font-medium normal-case tracking-normal text-left z-50">
       <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">Research Overview</Link>
       <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">Publications</Link>
       <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">Journals</Link>
@@ -301,35 +301,52 @@ const FindYourProgramAndNotices = () => {
   return (
     <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-10">
       
-      {/* Latest Events Section */}
-      <div className="lg:col-span-2">
-        <div className="flex justify-between items-center border-b-2 border-[#0f4a8a] mb-6 pb-2">
-          <h2 className="text-2xl font-bold text-[#0f4a8a] uppercase">Find Your Program</h2>
-          <Link href="#" className="text-sm text-gray-600 hover:text-[#0f4a8a]">View All</Link>
+      {/* Find Your Program Section */}
+      <div className="lg:col-span-2 flex flex-col justify-end">
+        <div className="relative h-[4.5rem] z-0 select-none">
+          <span className="text-[7rem] md:text-[9.5rem] font-bold text-[#52a8e8] opacity-75 absolute -bottom-7 left-0 leading-none tracking-normal font-sans">
+            Find
+          </span>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[1, 2].map((item) => (
-            <div key={item} className="bg-white shadow-sm border border-gray-200 group cursor-pointer">
-              <div className="h-48 bg-gray-200 overflow-hidden relative">
-                 <img 
-                  src={`/images/news-${item}.jpg`} 
-                  alt="Event" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/400x200?text=News+Image"; }}
-                />
-              </div>
-              <div className="p-5">
-                <p className="text-xs text-gray-500 mb-2 font-semibold">MAY 2026</p>
-                <h3 className="font-bold text-[17px] mb-3 text-gray-800 group-hover:text-[#0f4a8a] transition-colors leading-snug">
-                  AIUB Organized International Conference on Computing Advancements
-                </h3>
-                <p className="text-gray-600 text-sm line-clamp-3">
-                  The Department of Computer Science hosted a prestigious gathering of international researchers and academicians to discuss the future of AI and software engineering...
-                </p>
-              </div>
+
+        <div className="relative bg-zinc-950 border border-zinc-800 rounded-sm overflow-hidden h-[420px] shadow-lg flex flex-col justify-between p-6 z-10 group">
+          {/* Background Student Image */}
+          <img 
+            src="images/find-your-program.webp" 
+            alt="Find Your Program" 
+            className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 "
+          />
+
+
+          {/* Top Title: YOUR PROGRAM */}
+          <div className="relative z-10 text-center">
+            <h3 className="text-[#edf1da] font-black tracking-[0.25em] text-sm md:text-base uppercase select-none">
+              YOUR PROGRAM
+            </h3>
+          </div>
+
+          {/* Bottom Links: Undergraduate & Graduate */}
+          <div className="relative z-10 w-full px-4 md:px-8 pb-4">
+            {/* Undergraduate Link */}
+            <div className="border-b border-zinc-700/60 pb-3 mb-6 group/item cursor-pointer">
+              <Link href="#" className="text-xl md:text-[22px] font-bold text-white hover:text-[#52a8e8] transition-colors flex justify-between items-center leading-none">
+                <span>Undergraduate</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 opacity-0 group-hover/item:opacity-100 transition-opacity text-[#52a8e8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
             </div>
-          ))}
+
+            {/* Graduate Link */}
+            <div className="border-b border-zinc-700/60 pb-3 group/item cursor-pointer">
+              <Link href="#" className="text-xl md:text-[22px] font-bold text-white hover:text-[#52a8e8] transition-colors flex justify-between items-center leading-none">
+                <span>Graduate</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 opacity-0 group-hover/item:opacity-100 transition-opacity text-[#52a8e8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
