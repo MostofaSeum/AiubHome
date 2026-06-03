@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function SubNavbar({ isScrolled }: { isScrolled: boolean }) {
   return (
-    <div className={`transition-all duration-300 py-2 px-4 md:px-8 hidden lg:block relative z-40 border-b ${isScrolled ? 'bg-[#1b1b1b]/95 backdrop-blur-sm border-gray-800' : 'bg-black/10 backdrop-blur-[1px] border-white/10'} text-[#dfa153]`}>
+    <div className={`transition-all duration-300 py-2 px-4 md:px-8 hidden lg:block relative z-40 border-b ${isScrolled ? 'bg-[#1b1b1b]/95 backdrop-blur-sm border-gray-800' : 'bg-tranparent backdrop-blur-[1px] border-white/10'} text-[#dfa153]`}>
       <div className="max-w-7xl mx-auto flex justify-between items-center h-[28px] tracking-wide font-semibold text-[13px]">
         {/* Left Buttons */}
         <div className="flex items-center gap-3.5">

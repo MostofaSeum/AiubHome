@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function TopHeader({ isScrolled }: { isScrolled: boolean }) {
   return (
-    <div className={`transition-colors duration-300 text-[#52a8e8] text-[13px] py-1.5 px-4 md:px-8 flex justify-between items-center ${isScrolled ? 'bg-[#2c2c2c]' : 'bg-[#2c2c2c]/40 backdrop-blur-[1px] border-b border-white/5'}`}>
+    <div className={`transition-all duration-300 text-[13px] py-1.5 px-4 md:px-8 flex justify-between items-center ${isScrolled ? 'text-[#52a8e8] bg-[#2c2c2c]' : 'text-white bg-transparent backdrop-blur-[1px] border-b border-white/5'}`}>
       <div className="flex gap-5 font-medium tracking-wide">
         <span>American International University-Bangladesh</span>
       </div>

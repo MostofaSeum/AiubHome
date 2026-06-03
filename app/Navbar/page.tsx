@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function Navbar({ isScrolled }: { isScrolled: boolean }) {
   return (
-    <nav className={`transition-all duration-300 relative z-50 border-b ${isScrolled ? 'bg-[#0f4a8a] border-transparent' : 'bg-black/10 backdrop-blur-[1px] border-white/10'}`}>
+    <nav className={`transition-all duration-300 relative z-50 border-b ${isScrolled ? 'bg-[#0f4a8a] border-transparent' : 'bg-transparent backdrop-blur-[1px] border-white/10'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center items-center h-[60px] gap-8">
 
