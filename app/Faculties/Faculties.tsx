@@ -1,6 +1,6 @@
 "use client";
 
-import TypingText from '../TypingText/page';
+import TypingText from '../TypingText/TypingText';
 
 export default function Faculties() {
   const facultyData = [

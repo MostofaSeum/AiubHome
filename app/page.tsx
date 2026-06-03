@@ -1,18 +1,18 @@
 "use client";
 
 import React from 'react';
-import TopHeader from './TopHeader/page';
-import Navbar from './Navbar/page';
-import SubNavbar from './SubNavbar/page';
-import HeroSection from './HeroSection/page';
-import ImportantLinksBar from './ImportantLinksBar/page';
-import FindYourProgramAndNotices from './FindYourProgramAndNotices/page';
-import NewsAndEvents from './NewsAndEvents/page';
-import Faculties from './Faculties/page';
-import Footer from './Footer/page';
-import DiscoverOurCampus from './DiscoverOurCampus/pasge';
-import TalentsGotSparked from './TalentsGotSparked/page';
-import Apply from './Apply/page';
+import TopHeader from './TopHeader/TopHeader';
+import Navbar from './Navbar/Navbar';
+import SubNavbar from './SubNavbar/SubNavbar';
+import HeroSection from './HeroSection/HeroSection';
+import ImportantLinksBar from './ImportantLinksBar/ImportantLinksBar';
+import FindYourProgramAndNotices from './FindYourProgramAndNotices/FindYourProgramAndNotices';
+import NewsAndEvents from './NewsAndEvents/NewsAndEvents';
+import Faculties from './Faculties/Faculties';
+import Footer from './Footer/Footer';
+import DiscoverOurCampus from './DiscoverOurCampus/DiscoverOurCampus';
+import TalentsGotSparked from './TalentsGotSparked/TalentsGotSparked';
+import Apply from './Apply/Apply';
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = React.useState(false);

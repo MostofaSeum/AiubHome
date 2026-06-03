@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import TypingText from "../TypingText/page";
+import TypingText from "../TypingText/TypingText";
 
 const campusItems = [
   {

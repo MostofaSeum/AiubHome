@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import TypingText from '../TypingText/page';
+import TypingText from '../TypingText/TypingText';
 
 const campusStories = [
   {

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import TypingText from '../TypingText/page';
+import TypingText from '../TypingText/TypingText';
 
 export default function FindYourProgramAndNotices() {
   const notices = [

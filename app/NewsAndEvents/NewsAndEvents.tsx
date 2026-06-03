@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react';
-import TypingText from '../TypingText/page';
-import GridMotion from '../GridMotion/page';
+import TypingText from '../TypingText/TypingText';
+import GridMotion from '../GridMotion/GridMotion';
 
 const newsAndEventsImages = [
   "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=600&q=80",
