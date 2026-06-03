@@ -9,7 +9,6 @@ export default function Faculties() {
       name: "Faculty of Arts and Social Sciences",
       shortName: "FASS",
       img: "/images/faculties/fass.webp",
-      // Red background with warm red glow
       meshClass: "bg-[#240303]/20",
       meshGlows: (
         <div className="absolute bottom-0 inset-x-0 h-[70%] bg-gradient-to-t from-[#b91c1c] via-[#7f1d1d]/80 to-transparent opacity-95" />
@@ -23,7 +22,6 @@ export default function Faculties() {
       name: "Faculty of Business Administration",
       shortName: "FBA",
       img: "/images/faculties/fba.webp",
-      // Clean Green
       meshClass: "bg-[#021c08]/20",
       meshGlows: (
         <div className="absolute bottom-0 inset-x-0 h-[70%] bg-gradient-to-t from-[#15803d] via-[#14532d]/80 to-transparent opacity-95" />
@@ -37,7 +35,6 @@ export default function Faculties() {
       name: "Faculty of Engineering",
       shortName: "FE",
       img: "/images/faculties/fe.webp",
-      // Orange 
       meshClass: "bg-[#291201]/20",
       meshGlows: (
         <div className="absolute bottom-0 inset-x-0 h-[70%] bg-gradient-to-t from-[#d97706] via-[#78350f]/80 to-transparent opacity-95" />
@@ -51,7 +48,6 @@ export default function Faculties() {
       name: "Faculty of Health and Life Sciences",
       shortName: "FHLS",
       img: "/images/faculties/fhls-1.webp",
-      // /purple
       meshClass: "bg-[#1e032b]/20",
       meshGlows: (
         <div className="absolute bottom-0 inset-x-0 h-[65%] bg-gradient-to-t from-[#6b21a8] via-[#4c1d95]/80 to-transparent opacity-95" />
@@ -65,7 +61,6 @@ export default function Faculties() {
       name: "Faculty of Science and Technology",
       shortName: "FST",
       img: "/images/faculties/fst.webp",
-      // Sky Blue
       meshClass: "bg-[#031b4e]/20",
       meshGlows: (
         <div className="absolute bottom-0 inset-x-0 h-[70%] bg-gradient-to-t from-[#0284c7] via-[#0c4a6e]/80 to-transparent opacity-95" />
@@ -77,7 +72,7 @@ export default function Faculties() {
   ];
 
   return (
-    <section className="w-full py-16 bg-white">
+    <section className="w-full py-16 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto flex justify-center items-center mb-12">
         <div className="flex items-baseline select-none relative">
           <TypingText 
@@ -91,46 +86,55 @@ export default function Faculties() {
         {facultyData.map((faculty) => (
           <div
             key={faculty.id}
-            className="relative flex-1 min-w-[260px] max-w-[340px] lg:max-w-none h-[420px] rounded-lg overflow-hidden group shadow-lg bg-zinc-900 cursor-pointer transition-all duration-300 hover:shadow-xl"
+            className="relative flex-1 min-w-[260px] max-w-[340px] lg:max-w-none h-[420px] rounded-lg group shadow-lg bg-zinc-900 cursor-pointer z-0 hover:z-30 transition-all duration-500 will-change-transform"
           >
-            {/* Base Image */}
-            <img
-              src={faculty.img}
-              alt={faculty.name}
-              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-              onError={(e) => {
-                e.currentTarget.src = faculty.shortName;
-              }}
-            />
+            {/* Visual Boundary Wrapper Layer */}
+            <div className="absolute inset-0 rounded-lg overflow-hidden group-hover:overflow-visible transition-all duration-500">
+              
+              {/* Base Image */}
+              <img
+                src={faculty.img}
+                alt={faculty.name}
+                className="w-full h-full object-cover transition-transform duration-700 ease-out scale-100 group-hover:scale-110 will-change-transform"
+                onError={(e) => {
+                  e.currentTarget.src = faculty.shortName;
+                }}
+              />
 
-            {/* Standard Shadow Gradient Overlay*/}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent transition-opacity duration-500 group-hover:opacity-0" />
+              {/* Standard Shadow Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent transition-opacity duration-500 group-hover:opacity-0" />
 
-            {/* Hover Mesh */}
-            <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 overflow-hidden ${faculty.meshClass}`}>
-              {faculty.meshGlows}
-              {/* Logo */}
+              {/* Hover Mesh Gradient Layer */}
+              <div 
+                className={`absolute inset-0 opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-110 transition-all duration-700 ease-out z-10 pointer-events-none ${faculty.meshClass}`}
+              >
+                {faculty.meshGlows}
+              </div>
+            </div>
+
+            {/* Logo */}
+            <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden rounded-lg">
               <img 
                 src={faculty.hoverLogo}
                 alt={faculty.name}
-                className='absolute top-15 left-20 w-[50%] opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10'
+                className='absolute top-12 left-1/2 -translate-x-1/2 w-24 h-24 object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-500'
               />
             </div>
 
-            {/* Content Text */}
-            <div className="absolute inset-0 p-6 flex flex-col justify-end items-start z-20">
+            {/* Content Text Container Layout */}
+            <div className="absolute inset-0 p-6 flex flex-col justify-end items-start z-20 pointer-events-none">
               {/* Short name */}
-              <span className="text-white/60 text-xs font-mono font-bold tracking-widest uppercase mb-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+              <span className="text-white/60 text-xs font-mono font-bold tracking-widest uppercase mb-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
                 {faculty.shortName}
               </span>
               
               {/* Full Name */}
-              <h3 className={`text-white text-lg md:text-xl font-bold tracking-wide leading-snug transition-colors duration-300 ${faculty.hoverTextClass}`}>
+              <h3 className={`text-white text-lg md:text-xl font-bold tracking-wide leading-snug transition-colors duration-500 ${faculty.hoverTextClass}`}>
                 {faculty.name}
               </h3>
 
               {/* Line indicator */}
-              <div className={`w-8 h-[3px] bg-[#0f4a8a] mt-4 rounded-full group-hover:w-16 transition-all duration-300 ${faculty.hoverLineClass}`} />
+              <div className={`w-8 h-[3px] bg-[#0f4a8a] mt-4 rounded-full group-hover:w-16 transition-all duration-500 ease-out ${faculty.hoverLineClass}`} />
             </div>
           </div>
         ))}
