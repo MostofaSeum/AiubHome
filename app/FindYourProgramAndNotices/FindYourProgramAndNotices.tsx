@@ -33,7 +33,7 @@ export default function FindYourProgramAndNotices() {
         <div className="relative bg-zinc-950 border border-zinc-800 rounded-sm overflow-hidden h-[420px] shadow-lg flex flex-col justify-end p-6 z-10 group">
           {/* Background Student Image */}
           <img 
-            src="images/find-your-program.webp" 
+            src="/images/find-your-program.webp" 
             alt="Find Your Program" 
             className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 "
           />

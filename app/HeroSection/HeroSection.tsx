@@ -12,30 +12,30 @@ export default function HeroSection() {
 
   const slides = [
     {
-      url: '/Images/Fig-1.webp',
+      url: '/images/Fig-1.webp',
     },
     {
-      url: '/Images/Fig-2.webp',
+      url: '/images/Fig-2.webp',
       hasBrandOverlay: true
     },
     {
-      url: '/Images/Fig-3.webp',
+      url: '/images/Fig-3.webp',
       tag: 'Leading',
       title: 'The Educational Experience'
     },
     {
-      url: '/Images/Fig-4.webp'
+      url: '/images/Fig-4.webp'
     },
     {
-      url: '/Images/Fig-5.webp',
+      url: '/images/Fig-5.webp',
       tag: 'TECH - CENTRIC',
       title: 'TEACHING'
     },
     {
-      url: '/Images/Fig-6.webp'
+      url: '/images/Fig-6.webp'
     },
     {
-      url: '/Images/Fig-7.webp',
+      url: '/images/Fig-7.webp',
       tag: 'URBAN',
       title: 'GREEN CAMPUS'
     },
@@ -134,11 +134,11 @@ export default function HeroSection() {
 
                   {/* Faculty Logos Row */}
                   <div className="brand-logos flex flex-wrap gap-3 sm:gap-6 md:gap-8 mt-6 md:mt-8 items-center justify-end w-full">
-                    <img src="/Images/Logos/fass-logo.webp" alt="FASS Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
-                    <img src="/Images/Logos/fba-logo.webp" alt="FBA Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
-                    <img src="/Images/Logos/fe-logo.webp" alt="FBE Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
-                    <img src="/Images/Logos/fst-short-logo.webp" alt="FST Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
-                    <img src="/Images/Logos/fhls-logo_with_glow.webp" alt="FSHLS Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
+                    <img src="/images/logos/fass-logo.webp" alt="FASS Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
+                    <img src="/images/logos/fba-logo.webp" alt="FBA Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
+                    <img src="/images/logos/fe-logo.webp" alt="FBE Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
+                    <img src="/images/logos/fst-short-logo.webp" alt="FST Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
+                    <img src="/images/logos/fhls-logo_with_glow.webp" alt="FSHLS Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
                   </div>
 
                 </div>

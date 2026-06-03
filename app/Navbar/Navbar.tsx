@@ -113,7 +113,7 @@ export default function Navbar({ isScrolled }: { isScrolled: boolean }) {
           <div className="flex-shrink-0 flex justify-center items-center relative h-[60px] w-24">
             <div className="absolute top-1/2 -translate-y-1/4 w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg border-[3px] border-white z-10 overflow-hidden">
               <img 
-                src="/Images/aiub-logo.png" 
+                src="/images/aiub-logo.png" 
                 alt="AIUB Logo" 
                 className="object-contain w-full h-full"
               />

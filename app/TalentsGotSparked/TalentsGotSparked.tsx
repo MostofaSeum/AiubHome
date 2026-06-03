@@ -7,27 +7,27 @@ import TypingText from '../TypingText/TypingText';
 const campusStories = [
   {
     title: "AIUB Writes a Winning Chapter at Inter University Table Tennis 2026",
-    img: "/images/TalentsGotSparked/winningchapter-(8).webp",
+    img: "/images/talentsgotsparked/winningchapter-(8).webp",
   },
   {
     title: "AIUB Crowned Champions of Inter-University Football Tournament 2025",
-    img: "/images/TalentsGotSparked/inter-university-football-tournament-2025-.webp",
+    img: "/images/talentsgotsparked/inter-university-football-tournament-2025-.webp",
   },
   {
     title: "AIUB EEE Student’s Achievement at IEEE Young Professionals Networking Meet-Up 2025",
-    img: "/images/TalentsGotSparked/ieeeyoungprofessionalsnetworkingmeet-(3).webp",
+    img: "/images/talentsgotsparked/ieeeyoungprofessionalsnetworkingmeet-(3).webp",
   },
   {
     title: "AIUB’s Historic Bronze Finish at the Bangladesh National Basketball Championship 2025",
-    img: "/images/TalentsGotSparked/bangladeshnationalbasketballchampionship-(1).webp",
+    img: "/images/talentsgotsparked/bangladeshnationalbasketballchampionship-(1).webp",
   },
   {
     title: "AIUB Students Won Best Paper Award at ICEBTM hosted by IUB",
-    img: "/images/TalentsGotSparked/bestpaperaward-(2).webp",
+    img: "/images/talentsgotsparked/bestpaperaward-(2).webp",
   },
   {
     title: "Architecture student Wins Italian MAECI Scholarship",
-    img: "/images/TalentsGotSparked/maecischolarship02.webp",
+    img: "/images/talentsgotsparked/maecischolarship02.webp",
   },
 ];
 

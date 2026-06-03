@@ -8,37 +8,37 @@ const campusItems = [
     title: "Library",
     headerTitle: "Library",
     description: "Where scholarly research merges in academia.",
-    img: "/images/DiscoverOurCampus/Library.webp",
+    img: "/images/discoverourcampus/Library.webp",
   },
   {
     title: "Sports Complex",
     headerTitle: "Pick your ground.",
     description: "Cricket, football, basketball, tennis, badminton, volleyball courts - whatever your game is we have the ground.",
-    img: "/images/DiscoverOurCampus/SportsComplex.webp",
+    img: "/images/discoverourcampus/SportsComplex.webp",
   },
   {
     title: "Study Area",
     headerTitle: "Study Area",
     description: "Take a break to be prepared for next session",
-    img: "/images/DiscoverOurCampus/StudyArea.webp",
+    img: "/images/discoverourcampus/StudyArea.webp",
   },
   {
     title: "Gymnasium",
     headerTitle: "Gymnasium",
     description: "Boost your strength a bit with sweaty experience.",
-    img: "/images/DiscoverOurCampus/gymnasium-aiub.webp",
+    img: "/images/discoverourcampus/gymnasium-aiub.webp",
   },
   {
     title: "Amphitheater",
     headerTitle: "Amphitheater",
     description: "Where meets the colors, culture and melody of togetherness.",
-    img: "/images/DiscoverOurCampus/Amphitheater.webp",
+    img: "/images/discoverourcampus/Amphitheater.webp",
   },
   {
     title: "Computer Laboratories",
     headerTitle: "Computer Laboratories",
     description: "Make better clicks with advance technology",
-    img: "/images/DiscoverOurCampus/ComputerLab.webp",
+    img: "/images/discoverourcampus/ComputerLab.webp",
   },
 ];
 
