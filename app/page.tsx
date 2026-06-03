@@ -10,6 +10,7 @@ import FindYourProgramAndNotices from './FindYourProgramAndNotices/page';
 import NewsAndEvents from './NewsAndEvents/page';
 import Faculties from './Faculties/page';
 import Footer from './Footer/page';
+import DiscoverOurCampus from './DiscoverOurCampus/pasge';
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = React.useState(false);
@@ -43,6 +44,7 @@ export default function Home() {
         <FindYourProgramAndNotices/>
         <NewsAndEvents/>
         <Faculties/>
+        <DiscoverOurCampus/>
       </main>
       <Footer />
     </div>
