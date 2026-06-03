@@ -13,7 +13,6 @@ import Footer from './Footer/Footer';
 import DiscoverOurCampus from './DiscoverOurCampus/DiscoverOurCampus';
 import TalentsGotSparked from './TalentsGotSparked/TalentsGotSparked';
 import Apply from './Apply/Apply';
-import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = React.useState(false);
