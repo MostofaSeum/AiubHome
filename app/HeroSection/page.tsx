@@ -11,31 +11,31 @@ export default function HeroSection() {
   const [activeIndex, setActiveIndex] = React.useState(1);
 
   const slides = [
-    { 
+    {
       url: '/Images/Fig-1.webp',
     },
-    { 
+    {
       url: '/Images/Fig-2.webp',
-      hasBrandOverlay: true 
+      hasBrandOverlay: true
     },
-    { 
+    {
       url: '/Images/Fig-3.webp',
-      tag: 'WORLD - CLASS',
-      title: 'INFRASTRUCTURE'
+      tag: 'Leading',
+      title: 'The Educational Experience'
     },
-    { 
-      url: '/Images/Fig-4.webp' 
+    {
+      url: '/Images/Fig-4.webp'
     },
-    { 
+    {
       url: '/Images/Fig-5.webp',
       tag: 'TECH - CENTRIC',
       title: 'TEACHING'
     },
-    { 
-      url: '/Images/Fig-6.webp' 
+    {
+      url: '/Images/Fig-6.webp'
     },
-    { 
-      url: '/Images/Fig-7.webp' ,
+    {
+      url: '/Images/Fig-7.webp',
       tag: 'URBAN',
       title: 'GREEN CAMPUS'
     },
@@ -62,8 +62,38 @@ export default function HeroSection() {
           opacity: 1;
           transform: translateY(0);
         }
+        .brand-title {
+          opacity: 0;
+          transform: translateX(-50px);
+          transition: transform 1200ms cubic-bezier(0.25, 1, 0.5, 1), opacity 1200ms ease;
+          transition-delay: 200ms;
+        }
+        .swiper-slide-hero.swiper-slide-active .brand-title {
+          opacity: 0.85;
+          transform: translateX(0);
+        }
+        .brand-tagline {
+          opacity: 0;
+          transform: translateX(-50px);
+          transition: transform 1200ms cubic-bezier(0.25, 1, 0.5, 1), opacity 1200ms ease;
+          transition-delay: 450ms;
+        }
+        .swiper-slide-hero.swiper-slide-active .brand-tagline {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .brand-logos {
+          opacity: 0;
+          transform: translateX(-50px);
+          transition: transform 1200ms cubic-bezier(0.25, 1, 0.5, 1), opacity 1200ms ease;
+          transition-delay: 700ms;
+        }
+        .swiper-slide-hero.swiper-slide-active .brand-logos {
+          opacity: 1;
+          transform: translateX(0);
+        }
       `}</style>
-      
+
       <Swiper
         spaceBetween={0}
         slidesPerView={1}
@@ -81,48 +111,48 @@ export default function HeroSection() {
       >
         {slides.map((slide, idx) => (
           <SwiperSlide key={idx} className="w-full h-full relative swiper-slide-hero">
-            <img 
-              src={slide.url} 
-              alt={`AIUB Campus View ${idx + 1}`} 
-              className="w-full h-full object-cover"
+            <img
+              src={slide.url}
+              alt={`AIUB Campus View ${idx + 1}`}
+              className="w-full h-full object-cover brightness-75"
             />
 
-            {/* CASE 1: Custom AIUB Brand Overlay with Logos (Fig-2) */}
+            {/*Custom AIUB Brand Overlay with Logos*/}
             {slide.hasBrandOverlay && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 pointer-events-none px-4">
-                <div className="hero-text-container select-none flex flex-col items-center max-w-5xl w-full">
+              <div className="absolute inset-0 flex items-end justify-end px-8 md:px-16 pb-20 md:pb-28 z-20 pointer-events-none">
+                <div className="select-none flex flex-col items-end text-right w-full max-w-3xl">
                   
                   {/*Giant AIUB*/}
-                  <h1 className="text-white text-7xl sm:text-8xl md:text-[11rem] font-black tracking-wide leading-none opacity-85">
+                  <h1 className="brand-title text-[white] text-7xl sm:text-8xl md:text-[10rem] font-black tracking-wide leading-none opacity-85">
                     AIUB
                   </h1>
                   
                   {/* Tagline */}
-                  <p className="text-white text-sm sm:text-lg md:text-2xl font-bold tracking-[0.3em] uppercase mt-2 md:mt-4 whitespace-nowrap">
+                  <p className="brand-tagline text-white text-sm sm:text-lg md:text-2xl font-bold tracking-[0.3em] uppercase mt-2 md:mt-4 whitespace-nowrap">
                     Where Leaders are Created
                   </p>
 
                   {/* Faculty Logos Row */}
-                  <div className="grid grid-cols-5 gap-3 sm:gap-6 md:gap-8 mt-8 md:mt-12 items-center justify-center max-w-3xl w-full px-4">
-                    <img src="/Images/Logos/fass-logo.webp" alt="FASS Logo" className="h-10 sm:h-16 md:h-20 object-contain mx-auto filter drop-shadow-md" />
-                    <img src="/Images/Logos/fba-logo.webp" alt="FBA Logo" className="h-10 sm:h-16 md:h-20 object-contain mx-auto filter drop-shadow-md" />
-                    <img src="/Images/Logos/fe-logo.webp" alt="FBE Logo" className="h-10 sm:h-16 md:h-20 object-contain mx-auto filter drop-shadow-md" />
-                    <img src="/Images/Logos/fst-short-logo.webp" alt="FST Logo" className="h-10 sm:h-16 md:h-20 object-contain mx-auto filter drop-shadow-md" />
-                    <img src="/Images/Logos/fhls-logo_with_glow.webp" alt="FSHLS Logo" className="h-10 sm:h-16 md:h-20 object-contain mx-auto filter drop-shadow-md" />
+                  <div className="brand-logos flex flex-wrap gap-3 sm:gap-6 md:gap-8 mt-6 md:mt-8 items-center justify-end w-full">
+                    <img src="/Images/Logos/fass-logo.webp" alt="FASS Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
+                    <img src="/Images/Logos/fba-logo.webp" alt="FBA Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
+                    <img src="/Images/Logos/fe-logo.webp" alt="FBE Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
+                    <img src="/Images/Logos/fst-short-logo.webp" alt="FST Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
+                    <img src="/Images/Logos/fhls-logo_with_glow.webp" alt="FSHLS Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
                   </div>
 
                 </div>
               </div>
             )}
 
-            {/* CASE 2: Standard Text Content Overlay (Fig-3, Fig-5, Fig-7) */}
+            {/*Standard Text Content Overlay*/}
             {!slide.hasBrandOverlay && slide.tag && slide.title && (
               <div className="absolute inset-0 flex items-end justify-start max-w-7xl mx-auto px-8 md:px-16 pb-24 md:pb-36 z-20 pointer-events-none">
                 <div className="hero-text-container select-none text-left">
-                  <span className="text-[#52a8e8] text-sm md:text-xl font-bold tracking-[0.25em] uppercase block">
+                  <span className="text-[#52a8e8] text-sm md:text-7xl font-bold tracking-[0.25em] uppercase block">
                     {slide.tag}
                   </span>
-                  <h1 className="text-white text-5xl md:text-7xl font-black tracking-wide mt-3 uppercase leading-none">
+                  <h1 className="text-white text-5xl md:text-xl font-black tracking-wide mt-3 uppercase leading-none">
                     {slide.title}
                   </h1>
                 </div>
