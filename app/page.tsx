@@ -14,6 +14,7 @@ import DiscoverOurCampus from './DiscoverOurCampus/DiscoverOurCampus';
 import TalentsGotSparked from './TalentsGotSparked/TalentsGotSparked';
 import Apply from './Apply/Apply';
 import FactsbAndFigures from './FactsAndFigures/FactsAndFIgures'
+import CampusLife from './CampusLife/CampusLife';
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = React.useState(false);
@@ -51,6 +52,7 @@ export default function Home() {
         <TalentsGotSparked/>
         <Apply/>
         <FactsbAndFigures/>
+        <CampusLife/>
       </main>
       <Footer />
     </div>
