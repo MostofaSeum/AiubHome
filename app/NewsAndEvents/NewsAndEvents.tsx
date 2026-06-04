@@ -1,6 +1,5 @@
 "use client";
 
-import React from 'react';
 import TypingText from '../TypingText/TypingText';
 import GridMotion from '../GridMotion/GridMotion';
 
