@@ -1,0 +1,428 @@
+"use client";
+
+import React, { useEffect, useLayoutEffect, useRef, useCallback } from 'react';
+import type { ReactNode } from 'react';
+import Lenis from 'lenis';
+import TypingText from '../TypingText/TypingText';
+
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
+export interface ScrollStackItemProps {
+  itemClassName?: string;
+  children: ReactNode;
+}
+
+export const ScrollStackItem: React.FC<ScrollStackItemProps> = ({ children, itemClassName = '' }) => (
+  <div
+    className={`scroll-stack-card relative w-full h-80 my-8 p-12 rounded-[40px] shadow-[0_0_30px_rgba(0,0,0,0.1)] box-border origin-top will-change-transform ${itemClassName}`.trim()}
+    style={{
+      backfaceVisibility: 'hidden',
+      transformStyle: 'preserve-3d'
+    }}
+  >
+    {children}
+  </div>
+);
+
+interface ScrollStackProps {
+  className?: string;
+  children: ReactNode;
+  itemDistance?: number;
+  itemScale?: number;
+  itemStackDistance?: number;
+  stackPosition?: string;
+  scaleEndPosition?: string;
+  baseScale?: number;
+  scaleDuration?: number;
+  rotationAmount?: number;
+  blurAmount?: number;
+  useWindowScroll?: boolean;
+  onStackComplete?: () => void;
+}
+
+const ScrollStack: React.FC<ScrollStackProps> = ({
+  children,
+  className = '',
+  itemDistance = 100,
+  itemScale = 0.03,
+  itemStackDistance = 30,
+  stackPosition = '20%',
+  scaleEndPosition = '10%',
+  baseScale = 0.85,
+  scaleDuration = 0.5,
+  rotationAmount = 0,
+  blurAmount = 0,
+  useWindowScroll = false,
+  onStackComplete
+}) => {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const stackCompletedRef = useRef(false);
+  const animationFrameRef = useRef<number | null>(null);
+  const lenisRef = useRef<Lenis | null>(null);
+  const cardsRef = useRef<HTMLElement[]>([]);
+  const lastTransformsRef = useRef(new Map<number, any>());
+  const isUpdatingRef = useRef(false);
+
+  const calculateProgress = useCallback((scrollTop: number, start: number, end: number) => {
+    if (scrollTop < start) return 0;
+    if (scrollTop > end) return 1;
+    return (scrollTop - start) / (end - start);
+  }, []);
+
+  const parsePercentage = useCallback((value: string | number, containerHeight: number) => {
+    if (typeof value === 'string' && value.includes('%')) {
+      return (parseFloat(value) / 100) * containerHeight;
+    }
+    return parseFloat(value as string);
+  }, []);
+
+  const getScrollData = useCallback(() => {
+    if (useWindowScroll) {
+      return {
+        scrollTop: window.scrollY,
+        containerHeight: window.innerHeight,
+        scrollContainer: document.documentElement
+      };
+    } else {
+      const scroller = scrollerRef.current;
+      return {
+        scrollTop: scroller ? scroller.scrollTop : 0,
+        containerHeight: scroller ? scroller.clientHeight : 0,
+        scrollContainer: scroller
+      };
+    }
+  }, [useWindowScroll]);
+
+  const getElementOffset = useCallback(
+    (element: HTMLElement) => {
+      if (useWindowScroll) {
+        if (!scrollerRef.current) return 0;
+        const containerRect = scrollerRef.current.getBoundingClientRect();
+        const containerTop = containerRect.top + window.scrollY;
+        return containerTop + element.offsetTop;
+      } else {
+        return element.offsetTop;
+      }
+    },
+    [useWindowScroll]
+  );
+
+  const updateCardTransforms = useCallback(() => {
+    if (!cardsRef.current.length || isUpdatingRef.current) return;
+
+    isUpdatingRef.current = true;
+
+    const { scrollTop, containerHeight } = getScrollData();
+    const stackPositionPx = parsePercentage(stackPosition, containerHeight);
+    const scaleEndPositionPx = parsePercentage(scaleEndPosition, containerHeight);
+
+    const endElement = scrollerRef.current?.querySelector('.scroll-stack-end') as HTMLElement | null;
+
+    const endElementTop = endElement ? getElementOffset(endElement) : 0;
+
+    cardsRef.current.forEach((card, i) => {
+      if (!card) return;
+
+      const cardTop = getElementOffset(card);
+      const triggerStart = cardTop - stackPositionPx - itemStackDistance * i;
+      const triggerEnd = cardTop - scaleEndPositionPx;
+      const pinStart = cardTop - stackPositionPx - itemStackDistance * i;
+      const pinEnd = endElementTop - containerHeight / 2;
+
+      const scaleProgress = calculateProgress(scrollTop, triggerStart, triggerEnd);
+      const targetScale = baseScale + i * itemScale;
+      const scale = 1 - scaleProgress * (1 - targetScale);
+      const rotation = rotationAmount ? i * rotationAmount * scaleProgress : 0;
+
+      let blur = 0;
+      if (blurAmount) {
+        let topCardIndex = 0;
+        for (let j = 0; j < cardsRef.current.length; j++) {
+          const jCardTop = getElementOffset(cardsRef.current[j]);
+          const jTriggerStart = jCardTop - stackPositionPx - itemStackDistance * j;
+          if (scrollTop >= jTriggerStart) {
+            topCardIndex = j;
+          }
+        }
+
+        if (i < topCardIndex) {
+          const depthInStack = topCardIndex - i;
+          blur = Math.max(0, depthInStack * blurAmount);
+        }
+      }
+
+      let translateY = 0;
+      const isPinned = scrollTop >= pinStart && scrollTop <= pinEnd;
+
+      if (isPinned) {
+        translateY = scrollTop - cardTop + stackPositionPx + itemStackDistance * i;
+      } else if (scrollTop > pinEnd) {
+        translateY = pinEnd - cardTop + stackPositionPx + itemStackDistance * i;
+      }
+
+      const newTransform = {
+        translateY: Math.round(translateY * 100) / 100,
+        scale: Math.round(scale * 1000) / 1000,
+        rotation: Math.round(rotation * 100) / 100,
+        blur: Math.round(blur * 100) / 100
+      };
+
+      const lastTransform = lastTransformsRef.current.get(i);
+      const hasChanged =
+        !lastTransform ||
+        Math.abs(lastTransform.translateY - newTransform.translateY) > 0.1 ||
+        Math.abs(lastTransform.scale - newTransform.scale) > 0.001 ||
+        Math.abs(lastTransform.rotation - newTransform.rotation) > 0.1 ||
+        Math.abs(lastTransform.blur - newTransform.blur) > 0.1;
+
+      if (hasChanged) {
+        const transform = `translate3d(0, ${newTransform.translateY}px, 0) scale(${newTransform.scale}) rotate(${newTransform.rotation}deg)`;
+        const filter = newTransform.blur > 0 ? `blur(${newTransform.blur}px)` : '';
+
+        card.style.transform = transform;
+        card.style.filter = filter;
+
+        lastTransformsRef.current.set(i, newTransform);
+      }
+
+      if (i === cardsRef.current.length - 1) {
+        const isInView = scrollTop >= pinStart && scrollTop <= pinEnd;
+        if (isInView && !stackCompletedRef.current) {
+          stackCompletedRef.current = true;
+          onStackComplete?.();
+        } else if (!isInView && stackCompletedRef.current) {
+          stackCompletedRef.current = false;
+        }
+      }
+    });
+
+    isUpdatingRef.current = false;
+  }, [
+    itemScale,
+    itemStackDistance,
+    stackPosition,
+    scaleEndPosition,
+    baseScale,
+    rotationAmount,
+    blurAmount,
+    useWindowScroll,
+    onStackComplete,
+    calculateProgress,
+    parsePercentage,
+    getScrollData,
+    getElementOffset
+  ]);
+
+  const handleScroll = useCallback(() => {
+    updateCardTransforms();
+  }, [updateCardTransforms]);
+
+  const setupLenis = useCallback(() => {
+    if (useWindowScroll) {
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        touchMultiplier: 2,
+        infinite: false,
+        wheelMultiplier: 1,
+        lerp: 0.1,
+        syncTouch: true,
+        syncTouchLerp: 0.075
+      });
+
+      lenis.on('scroll', handleScroll);
+
+      const raf = (time: number) => {
+        lenis.raf(time);
+        animationFrameRef.current = requestAnimationFrame(raf);
+      };
+      animationFrameRef.current = requestAnimationFrame(raf);
+
+      lenisRef.current = lenis;
+      return lenis;
+    } else {
+      const scroller = scrollerRef.current;
+      if (!scroller) return;
+
+      const lenis = new Lenis({
+        wrapper: scroller,
+        content: scroller.querySelector('.scroll-stack-inner') as HTMLElement,
+        duration: 1.2,
+        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        touchMultiplier: 2,
+        infinite: false,
+        gestureOrientation: 'vertical',
+        wheelMultiplier: 1,
+        lerp: 0.1,
+        syncTouch: true,
+        syncTouchLerp: 0.075
+      });
+
+      lenis.on('scroll', handleScroll);
+
+      const raf = (time: number) => {
+        lenis.raf(time);
+        animationFrameRef.current = requestAnimationFrame(raf);
+      };
+      animationFrameRef.current = requestAnimationFrame(raf);
+
+      lenisRef.current = lenis;
+      return lenis;
+    }
+  }, [handleScroll, useWindowScroll]);
+
+  useIsomorphicLayoutEffect(() => {
+    if (!useWindowScroll && !scrollerRef.current) return;
+
+    const cards = Array.from(
+      scrollerRef.current?.querySelectorAll('.scroll-stack-card') ?? []
+    ) as HTMLElement[];
+    cardsRef.current = cards;
+    const transformsCache = lastTransformsRef.current;
+
+    cards.forEach((card, i) => {
+      if (i < cards.length - 1) {
+        card.style.marginBottom = `${itemDistance}px`;
+      }
+      card.style.willChange = 'transform, filter';
+      card.style.transformOrigin = 'top center';
+      card.style.backfaceVisibility = 'hidden';
+      card.style.transform = 'translateZ(0)';
+      card.style.webkitTransform = 'translateZ(0)';
+      card.style.perspective = '1000px';
+      card.style.webkitPerspective = '1000px';
+    });
+
+    setupLenis();
+
+    updateCardTransforms();
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      if (lenisRef.current) {
+        lenisRef.current.destroy();
+      }
+      stackCompletedRef.current = false;
+      cardsRef.current = [];
+      transformsCache.clear();
+      isUpdatingRef.current = false;
+    };
+  }, [
+    itemDistance,
+    itemScale,
+    itemStackDistance,
+    stackPosition,
+    scaleEndPosition,
+    baseScale,
+    scaleDuration,
+    rotationAmount,
+    blurAmount,
+    useWindowScroll,
+    onStackComplete,
+    setupLenis,
+    updateCardTransforms
+  ]);
+
+  return (
+    <div
+      className={`relative w-full overflow-x-visible ${useWindowScroll ? 'h-auto overflow-visible' : 'h-full overflow-y-auto'} ${className}`.trim()}
+      ref={scrollerRef}
+      style={{
+        overscrollBehavior: 'contain',
+        WebkitOverflowScrolling: 'touch',
+        scrollBehavior: 'smooth',
+        WebkitTransform: 'translateZ(0)',
+        transform: 'translateZ(0)',
+        willChange: 'scroll-position'
+      }}
+    >
+      <div className="scroll-stack-inner pt-[10vh] px-4 md:px-10 pb-[40rem] min-h-screen">
+        {children}
+        {/* Spacer so the last pin can release cleanly */}
+        <div className="scroll-stack-end w-full h-px" />
+      </div>
+    </div>
+  );
+};
+
+const researchImages = [
+  "/images/research/PGDHRM-Batch4-AIUB.webp",
+  "/images/research/PGD_in_Cybersecurity-Feb_2025.webp",
+  "/images/research/PGDTM_Feb_2025.webp",
+  "/images/research/PGD_in_ICT.webp",
+  "/images/research/French-Batch-19-Poster-Website.webp",
+  "/images/research/Ethical-Hacking-Batch-3-AIUB.webp",
+  "/images/research/CyberOPsB12.webp",
+  "/images/research/CCNABatch326.webp",
+  "/images/research/CCNA%20Batch%20-%20325%20-%20Online%20-%20Website.webp"
+];
+
+export default function Research() {
+  return (
+    <section className="w-full bg-white py-24 text-white overflow-x-clip min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-16 items-start justify-between">
+        
+        {/* Left Column: Sticky Title and Links */}
+        <div className="w-full lg:w-5/12 lg:sticky lg:top-32 flex flex-col justify-start">
+          <div className="flex items-baseline select-none relative font-sans tracking-normal leading-none mb-4">
+            <TypingText
+              text="Research"
+              className="text-[4rem] md:text-[5.5rem] font-bold text-[#52a8e8]"
+            />
+          </div>
+          <h2 className="text-zinc-500 text-xs font-mono font-bold tracking-widest uppercase mb-6 select-none">
+            ACTIVITIES
+          </h2>
+          <p className="text-zinc-400 text-sm md:text-base mb-8 leading-relaxed max-w-md">
+            Welcome to the diverse and dynamic world of research at the American
+            International University-Bangladesh (AIUB). Our institution is committed to
+            fostering innovation, advancing knowledge, and making a meaningful
+            impact on society through cutting-edge research across various disciplines.
+          </p>
+          <ul className="flex flex-col gap-4 font-bold text-sm md:text-base">
+            <li className="flex items-center gap-3 group cursor-pointer text-[#52a8e8] hover:text-blue-300 transition-colors">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#52a8e8] group-hover:bg-blue-300 group-hover:scale-125 transition-all duration-300" />
+              <span className="tracking-wide">Research Groups</span>
+            </li>
+            <li className="flex items-center gap-3 group cursor-pointer text-[#52a8e8] hover:text-blue-300 transition-colors">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#52a8e8] group-hover:bg-blue-300 group-hover:scale-125 transition-all duration-300" />
+              <span className="tracking-wide">Conferences</span>
+            </li>
+            <li className="flex items-center gap-3 group cursor-pointer text-[#52a8e8] hover:text-blue-300 transition-colors">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#52a8e8] group-hover:bg-blue-300 group-hover:scale-125 transition-all duration-300" />
+              <span className="tracking-wide">Innovations</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* Right Column: Scroll Stack Cards */}
+        <div className="w-full lg:w-7/12 flex flex-col items-center">
+          <h3 className="text-2xl md:text-3xl font-bold text-zinc-100 mb-8 tracking-wide text-center">
+            Continuing Education
+          </h3>
+          <div className="relative w-full max-w-[450px]">
+            <ScrollStack useWindowScroll={true} className="w-full" itemDistance={40}>
+              {researchImages.map((imagePath, index) => (
+                <ScrollStackItem 
+                  key={index} 
+                  itemClassName="!p-0 !rounded-3xl overflow-hidden h-[360px] border border-zinc-800 bg-[#161616]"
+                >
+                  <img
+                    src={imagePath}
+                    alt={`Continuing Education Poster ${index + 1}`}
+                    className="w-full h-full object-contain"
+                  />
+                </ScrollStackItem>
+              ))}
+            </ScrollStack>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
