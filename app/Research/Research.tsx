@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import Lenis from 'lenis';
@@ -353,12 +352,6 @@ const researchImages = [
   "/images/research/PGDHRM-Batch4-AIUB.webp",
   "/images/research/PGD_in_Cybersecurity-Feb_2025.webp",
   "/images/research/PGDTM_Feb_2025.webp",
-  "/images/research/PGD_in_ICT.webp",
-  "/images/research/French-Batch-19-Poster-Website.webp",
-  "/images/research/Ethical-Hacking-Batch-3-AIUB.webp",
-  "/images/research/CyberOPsB12.webp",
-  "/images/research/CCNABatch326.webp",
-  "/images/research/CCNA%20Batch%20-%20325%20-%20Online%20-%20Website.webp"
 ];
 
 export default function Research() {
@@ -371,7 +364,7 @@ export default function Research() {
           <div className="flex items-baseline select-none relative font-sans tracking-normal leading-none mb-4">
             <TypingText
               text="Research"
-              className="text-[4rem] md:text-[5.5rem] font-bold text-[#52a8e8]"
+              className="text-[4rem] md:text-[5.5rem] font-bold text-[#0f4a8a]"
             />
           </div>
           <h2 className="text-zinc-500 text-xs font-mono font-bold tracking-widest uppercase mb-6 select-none">
@@ -384,26 +377,27 @@ export default function Research() {
             impact on society through cutting-edge research across various disciplines.
           </p>
           <ul className="flex flex-col gap-4 font-bold text-sm md:text-base">
-            <li className="flex items-center gap-3 group cursor-pointer text-[#52a8e8] hover:text-blue-300 transition-colors">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#52a8e8] group-hover:bg-blue-300 group-hover:scale-125 transition-all duration-300" />
+            <li className="flex items-center gap-3 group cursor-pointer text-[#0f4a8a] hover:text-blue-300 transition-colors">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#0f4a8a] group-hover:bg-blue-300 group-hover:scale-125 transition-all duration-300" />
               <span className="tracking-wide">Research Groups</span>
             </li>
-            <li className="flex items-center gap-3 group cursor-pointer text-[#52a8e8] hover:text-blue-300 transition-colors">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#52a8e8] group-hover:bg-blue-300 group-hover:scale-125 transition-all duration-300" />
+            <li className="flex items-center gap-3 group cursor-pointer text-[#0f4a8a] hover:text-blue-300 transition-colors">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#0f4a8a] group-hover:bg-blue-300 group-hover:scale-125 transition-all duration-300" />
               <span className="tracking-wide">Conferences</span>
             </li>
-            <li className="flex items-center gap-3 group cursor-pointer text-[#52a8e8] hover:text-blue-300 transition-colors">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#52a8e8] group-hover:bg-blue-300 group-hover:scale-125 transition-all duration-300" />
+            <li className="flex items-center gap-3 group cursor-pointer text-[#0f4a8a] hover:text-blue-300 transition-colors">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#0f4a8a] group-hover:bg-blue-300 group-hover:scale-125 transition-all duration-300" />
               <span className="tracking-wide">Innovations</span>
             </li>
           </ul>
         </div>
 
-        {/* Right Column: Scroll Stack Cards */}
+        {/* Right Column*/}
         <div className="w-full lg:w-7/12 flex flex-col items-center">
-          <h3 className="text-2xl md:text-3xl font-bold text-zinc-100 mb-8 tracking-wide text-center">
-            Continuing Education
-          </h3>
+            <TypingText
+              text="Continuing Education"
+              className="text-[4rem] md:text-[3rem] font-bold text-[#0f4a8a]"
+            />
           <div className="relative w-full max-w-[450px]">
             <ScrollStack useWindowScroll={true} className="w-full" itemDistance={40}>
               {researchImages.map((imagePath, index) => (
