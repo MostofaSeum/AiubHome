@@ -5,26 +5,28 @@ import Link from 'next/link';
 
 export default function Navbar({ isScrolled }: { isScrolled: boolean }) {
   return (
-    <nav className={`transition-all duration-300 relative z-50 border-b ${isScrolled ? 'bg-[#0f4a8a] border-transparent' : 'bg-transparent backdrop-blur-[1px] border-white/10'}`}>
+    <nav className={`transition-all duration-300 relative z-50 border-b ${isScrolled ? 'bg-[#0f4a8a] border-transparent' : 'bg-transparent border-white/10'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center items-center h-[60px] gap-8">
 
           <div className="hidden lg:flex space-x-8 text-[15px] font-bold text-white uppercase tracking-wider items-center">
             
             {/* ABOUT*/}
-            <div className="relative group h-[60px] flex items-center">
+            <div className="relative group h-[60px] flex items-center ">
               <Link href="#" className="hover:text-gray-300 transition-colors h-full flex items-center">
                 About
               </Link>
-              <div className="absolute top-[60px] left-0 w-64 bg-[#053d7b]/95 border border-slate-700/40 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col text-sm font-medium normal-case tracking-normal text-left z-50">
-                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">Overview</Link>
-                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">General Information</Link>
-                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">Rules of Campus Entry</Link>
-                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">Why Study Here</Link>
-                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">Resources</Link>
-                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">Career</Link>
-                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors border-b border-slate-700/20">Convocation</Link>
-                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-[#0f4a8a] hover:text-white transition-colors last:border-none">Video</Link>
+              <div className={`absolute top-[60px] left-0 w-64 border border-slate-700/40 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col text-sm font-medium normal-case tracking-normal text-left z-50 ${
+                  isScrolled ? 'bg-[#0f4a8a] border-transparent' : 'bg-transparent backdrop-blur-sm border-white/10' 
+  }`}>
+                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-black/40 hover:text-white transition-colors border-b border-slate-700/20">Overview</Link>
+                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-black/40 hover:text-white transition-colors border-b border-slate-700/20">General Information</Link>
+                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-black/40 hover:text-white transition-colors border-b border-slate-700/20">Rules of Campus Entry</Link>
+                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-black/40 hover:text-white transition-colors border-b border-slate-700/20">Why Study Here</Link>
+                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-black/40 hover:text-white transition-colors border-b border-slate-700/20">Resources</Link>
+                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-black/40 hover:text-white transition-colors border-b border-slate-700/20">Career</Link>
+                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-black/40 hover:text-white transition-colors border-b border-slate-700/20">Convocation</Link>
+                <Link href="#" className="px-5 py-3.5 text-gray-100 hover:bg-black/40 hover:text-white transition-colors last:border-none">Video</Link>
               </div>
             </div>
 
