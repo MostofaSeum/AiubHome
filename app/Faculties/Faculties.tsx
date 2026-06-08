@@ -1,6 +1,6 @@
 "use client";
 
-import TypingText from '../TypingText/TypingText';
+import TypingText from "../TypingText/TypingText";
 
 export default function Faculties() {
   const facultyData = [
@@ -15,7 +15,7 @@ export default function Faculties() {
       ),
       hoverTextClass: "group-hover:text-red-200",
       hoverLineClass: "group-hover:bg-red-400",
-      hoverLogo: "/images/logos/fass-logo.webp"
+      hoverLogo: "/images/logos/fass-logo.webp",
     },
     {
       id: 2,
@@ -28,7 +28,7 @@ export default function Faculties() {
       ),
       hoverTextClass: "group-hover:text-emerald-200",
       hoverLineClass: "group-hover:bg-emerald-400",
-      hoverLogo: "/images/logos/fba-logo.webp"
+      hoverLogo: "/images/logos/fba-logo.webp",
     },
     {
       id: 3,
@@ -41,7 +41,7 @@ export default function Faculties() {
       ),
       hoverTextClass: "group-hover:text-amber-200",
       hoverLineClass: "group-hover:bg-amber-400",
-      hoverLogo: "/images/logos/fe-logo.webp"
+      hoverLogo: "/images/logos/fe-logo.webp",
     },
     {
       id: 4,
@@ -54,7 +54,7 @@ export default function Faculties() {
       ),
       hoverTextClass: "group-hover:text-purple-200",
       hoverLineClass: "group-hover:bg-purple-400",
-      hoverLogo: "/images/logos/fhls-logo_with_glow.webp"
+      hoverLogo: "/images/logos/fhls-logo_with_glow.webp",
     },
     {
       id: 5,
@@ -67,17 +67,17 @@ export default function Faculties() {
       ),
       hoverTextClass: "group-hover:text-sky-200",
       hoverLineClass: "group-hover:bg-sky-400",
-      hoverLogo: "/images/logos/fst-short-logo.webp"
-    }
+      hoverLogo: "/images/logos/fst-short-logo.webp",
+    },
   ];
 
   return (
     <section className="w-full py-16 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto flex justify-center items-center mb-12">
         <div className="flex items-baseline select-none relative">
-          <TypingText 
-            text="Faculties" 
-            className="text-[4rem] md:text-[5.5rem] font-bold text-[#0f4a8a] opacity-75 leading-none tracking-normal font-sans" 
+          <TypingText
+            text="Faculties"
+            className="text-[4rem] md:text-[5.5rem] font-bold text-[#0f4a8a] opacity-75 leading-none tracking-normal font-sans"
           />
         </div>
       </div>
@@ -90,7 +90,6 @@ export default function Faculties() {
           >
             {/* Visual Boundary Wrapper Layer */}
             <div className="absolute inset-0 rounded-lg overflow-hidden group-hover:overflow-visible transition-all duration-500">
-              
               {/* Base Image */}
               <img
                 src={faculty.img}
@@ -105,7 +104,7 @@ export default function Faculties() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent transition-opacity duration-500 group-hover:opacity-0" />
 
               {/* Hover Mesh Gradient Layer */}
-              <div 
+              <div
                 className={`absolute inset-0 opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-110 transition-all duration-700 ease-out z-10 pointer-events-none ${faculty.meshClass}`}
               >
                 {faculty.meshGlows}
@@ -114,10 +113,10 @@ export default function Faculties() {
 
             {/* Logo */}
             <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden rounded-lg">
-              <img 
+              <img
                 src={faculty.hoverLogo}
                 alt={faculty.name}
-                className='absolute top-12 left-1/2 -translate-x-1/2 w-24 h-24 object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-500'
+                className="absolute top-12 left-1/2 -translate-x-1/2 w-24 h-24 object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-500"
               />
             </div>
 
@@ -127,14 +126,18 @@ export default function Faculties() {
               <span className="text-white/60 text-xs font-mono font-bold tracking-widest uppercase mb-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
                 {faculty.shortName}
               </span>
-              
+
               {/* Full Name */}
-              <h3 className={`text-white text-lg md:text-xl font-bold tracking-wide leading-snug transition-colors duration-500 ${faculty.hoverTextClass}`}>
+              <h3
+                className={`text-white text-lg md:text-xl font-bold tracking-wide leading-snug transition-colors duration-500 ${faculty.hoverTextClass}`}
+              >
                 {faculty.name}
               </h3>
 
               {/* Line indicator */}
-              <div className={`w-8 h-[3px] bg-[#0f4a8a] mt-4 rounded-full group-hover:w-16 transition-all duration-500 ease-out ${faculty.hoverLineClass}`} />
+              <div
+                className={`w-8 h-[3px] bg-[#0f4a8a] mt-4 rounded-full group-hover:w-16 transition-all duration-500 ease-out ${faculty.hoverLineClass}`}
+              />
             </div>
           </div>
         ))}

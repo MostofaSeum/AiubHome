@@ -1,24 +1,33 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import TypingText from '../TypingText/TypingText';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
+import TypingText from "../TypingText/TypingText";
 
 const campusStories = [
   {
-    title: "AIUB Writes a Winning Chapter at Inter University Table Tennis 2026",
+    title:
+      "AIUB Writes a Winning Chapter at Inter University Table Tennis 2026",
     img: "/images/talentsgotsparked/winningchapter-(8).webp",
   },
   {
-    title: "AIUB Crowned Champions of Inter-University Football Tournament 2025",
+    title:
+      "AIUB Crowned Champions of Inter-University Football Tournament 2025",
     img: "/images/talentsgotsparked/inter-university-football-tournament-2025-.webp",
   },
   {
-    title: "AIUB EEE Student’s Achievement at IEEE Young Professionals Networking Meet-Up 2025",
+    title:
+      "AIUB EEE Student’s Achievement at IEEE Young Professionals Networking Meet-Up 2025",
     img: "/images/talentsgotsparked/ieeeyoungprofessionalsnetworkingmeet-(3).webp",
   },
   {
-    title: "AIUB’s Historic Bronze Finish at the Bangladesh National Basketball Championship 2025",
+    title:
+      "AIUB’s Historic Bronze Finish at the Bangladesh National Basketball Championship 2025",
     img: "/images/talentsgotsparked/bangladeshnationalbasketballchampionship-(1).webp",
   },
   {
@@ -63,13 +72,12 @@ export default function TalentsGotSparked() {
 
       <div ref={containerRef} className="h-[600vh] relative bg-white">
         <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row items-center px-4 md:px-8 max-w-7xl mx-auto gap-8 md:gap-12 justify-center">
-          
           {/* Animated Image Side */}
           <div className="w-full md:w-1/2 h-[250px] sm:h-[350px] md:h-[450px] relative overflow-hidden rounded-xl shadow-md bg-zinc-100">
             <AnimatePresence mode="popLayout">
-              <motion.img 
+              <motion.img
                 key={index}
-                src={campusStories[index].img} 
+                src={campusStories[index].img}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
@@ -96,7 +104,6 @@ export default function TalentsGotSparked() {
               </motion.div>
             </AnimatePresence>
           </div>
-
         </div>
       </div>
     </section>

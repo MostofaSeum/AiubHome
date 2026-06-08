@@ -1,7 +1,7 @@
 "use client";
 
-import TypingText from '../TypingText/TypingText';
-import { motion } from 'framer-motion';
+import TypingText from "../TypingText/TypingText";
+import { motion } from "framer-motion";
 
 const campusData = [
   {
@@ -9,29 +9,29 @@ const campusData = [
     name: "Sports",
     shortName: "THE EAGLE OF AIUB",
     img: "/images/campuslife/Sports.webp",
-    hoverLogo: "/images/campuslife/bullseye.png"
+    hoverLogo: "/images/campuslife/bullseye.png",
   },
   {
     id: 2,
     name: "Indoor Games",
     shortName: "GAME ON RAIN OR SHINE:INDOOR FUN FOR ALL",
     img: "/images/campuslife/Indoor--Games.webp",
-    hoverLogo: "/images/campuslife/images.png"
+    hoverLogo: "/images/campuslife/images.png",
   },
   {
     id: 3,
     name: "Cultural Activity",
     shortName: "CREATING CONNECTIONS THROUGH CULTURE",
     img: "/images/campuslife/Cultural-Activity.webp",
-    hoverLogo: "/images/campuslife/smily.png"
+    hoverLogo: "/images/campuslife/smily.png",
   },
   {
     id: 4,
     name: "Recreation",
     shortName: "WHERE LEARNING MEETS LEISURE",
     img: "/images/campuslife/recreation-2.webp",
-    hoverLogo: "/images/campuslife/paperclip.png"
-  }
+    hoverLogo: "/images/campuslife/paperclip.png",
+  },
 ];
 
 const containerVariants = {
@@ -40,8 +40,8 @@ const containerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.15,
-    }
-  }
+    },
+  },
 } as const;
 
 const cardVariants = {
@@ -51,9 +51,9 @@ const cardVariants = {
     x: 0,
     transition: {
       duration: 0.6,
-      ease: "easeOut"
-    }
-  }
+      ease: "easeOut",
+    },
+  },
 } as const;
 
 export default function CampusLife() {

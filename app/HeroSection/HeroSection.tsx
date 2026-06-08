@@ -1,43 +1,43 @@
 "use client";
 
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/effect-fade';
-import { Autoplay, Navigation, EffectFade } from 'swiper/modules';
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/effect-fade";
+import { Autoplay, Navigation, EffectFade } from "swiper/modules";
 
 export default function HeroSection() {
   const [activeIndex, setActiveIndex] = React.useState(1);
 
   const slides = [
     {
-      url: '/images/Fig-1.webp',
+      url: "/images/Fig-1.webp",
     },
     {
-      url: '/images/Fig-2.webp',
-      hasBrandOverlay: true
+      url: "/images/Fig-2.webp",
+      hasBrandOverlay: true,
     },
     {
-      url: '/images/Fig-3.webp',
-      tag: 'Leading',
-      title: 'The Educational Experience'
+      url: "/images/Fig-3.webp",
+      tag: "Leading",
+      title: "The Educational Experience",
     },
     {
-      url: '/images/Fig-4.webp'
+      url: "/images/Fig-4.webp",
     },
     {
-      url: '/images/Fig-5.webp',
-      tag: 'TECH - CENTRIC',
-      title: 'TEACHING'
+      url: "/images/Fig-5.webp",
+      tag: "TECH - CENTRIC",
+      title: "TEACHING",
     },
     {
-      url: '/images/Fig-6.webp'
+      url: "/images/Fig-6.webp",
     },
     {
-      url: '/images/Fig-7.webp',
-      tag: 'URBAN',
-      title: 'GREEN CAMPUS'
+      url: "/images/Fig-7.webp",
+      tag: "URBAN",
+      title: "GREEN CAMPUS",
     },
   ];
 
@@ -102,15 +102,18 @@ export default function HeroSection() {
         fadeEffect={{ crossFade: true }}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
         navigation={{
-          prevEl: '.swiper-button-prev-custom',
-          nextEl: '.swiper-button-next-custom',
+          prevEl: ".swiper-button-prev-custom",
+          nextEl: ".swiper-button-next-custom",
         }}
         modules={[Autoplay, Navigation, EffectFade]}
         className="w-full h-full"
         onSlideChange={(swiper) => setActiveIndex(swiper.realIndex + 1)}
       >
         {slides.map((slide, idx) => (
-          <SwiperSlide key={idx} className="w-full h-full relative swiper-slide-hero">
+          <SwiperSlide
+            key={idx}
+            className="w-full h-full relative swiper-slide-hero"
+          >
             <img
               src={slide.url}
               alt={`AIUB Campus View ${idx + 1}`}
@@ -121,12 +124,11 @@ export default function HeroSection() {
             {slide.hasBrandOverlay && (
               <div className="absolute inset-0 flex items-end justify-end px-8 md:px-16 pb-20 md:pb-28 z-20 pointer-events-none">
                 <div className="select-none flex flex-col items-end text-right w-full max-w-3xl">
-                  
                   {/*Giant AIUB*/}
                   <h1 className="brand-title text-[white] text-7xl sm:text-8xl md:text-[10rem] font-black tracking-wide leading-none opacity-85">
                     AIUB
                   </h1>
-                  
+
                   {/* Tagline */}
                   <p className="brand-tagline text-white text-sm sm:text-lg md:text-2xl font-bold tracking-[0.3em] uppercase mt-2 md:mt-4 whitespace-nowrap">
                     Where Leaders are Created
@@ -134,13 +136,32 @@ export default function HeroSection() {
 
                   {/* Faculty Logos Row */}
                   <div className="brand-logos flex flex-wrap gap-3 sm:gap-6 md:gap-8 mt-6 md:mt-8 items-center justify-end w-full">
-                    <img src="/images/logos/fass-logo.webp" alt="FASS Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
-                    <img src="/images/logos/fba-logo.webp" alt="FBA Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
-                    <img src="/images/logos/fe-logo.webp" alt="FBE Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
-                    <img src="/images/logos/fst-short-logo.webp" alt="FST Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
-                    <img src="/images/logos/fhls-logo_with_glow.webp" alt="FSHLS Logo" className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md" />
+                    <img
+                      src="/images/logos/fass-logo.webp"
+                      alt="FASS Logo"
+                      className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md"
+                    />
+                    <img
+                      src="/images/logos/fba-logo.webp"
+                      alt="FBA Logo"
+                      className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md"
+                    />
+                    <img
+                      src="/images/logos/fe-logo.webp"
+                      alt="FBE Logo"
+                      className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md"
+                    />
+                    <img
+                      src="/images/logos/fst-short-logo.webp"
+                      alt="FST Logo"
+                      className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md"
+                    />
+                    <img
+                      src="/images/logos/fhls-logo_with_glow.webp"
+                      alt="FSHLS Logo"
+                      className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md"
+                    />
                   </div>
-
                 </div>
               </div>
             )}
@@ -168,8 +189,19 @@ export default function HeroSection() {
           {activeIndex}/7
         </span>
         <button className="swiper-button-prev-custom px-5 py-3.5 hover:bg-white/10 text-white transition-all cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2.5}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
         </button>
       </div>
@@ -180,8 +212,19 @@ export default function HeroSection() {
           {activeIndex}/7
         </span>
         <button className="swiper-button-next-custom px-5 py-3.5 hover:bg-white/10 text-white transition-all cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2.5}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9 5l7 7-7 7"
+            />
           </svg>
         </button>
       </div>

@@ -1,5 +1,5 @@
-import TypingText from '../TypingText/TypingText';
-import GridMotion from '../GridMotion/GridMotion';
+import TypingText from "../TypingText/TypingText";
+import GridMotion from "../GridMotion/GridMotion";
 
 const newsAndEventsImages = [
   "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=600&q=80",
@@ -29,7 +29,7 @@ const newsAndEventsImages = [
   "https://images.unsplash.com/photo-1516534775068-ba3e84589d90?auto=format&fit=crop&w=600&q=80",
   "https://images.unsplash.com/photo-1560785496-3c9d2787718e?auto=format&fit=crop&w=600&q=80",
   "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=600&q=80"
+  "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=600&q=80",
 ];
 
 export default function NewsAndEvents() {
@@ -38,13 +38,13 @@ export default function NewsAndEvents() {
       {/* Title as it was before */}
       <div className="max-w-7xl mx-auto flex justify-between items-center mb-10">
         <div className="flex items-baseline select-none relative">
-          <TypingText 
-            text="News" 
-            className="text-[4rem] md:text-[5.5rem] font-bold text-[#0f4a8a] opacity-75 leading-none tracking-normal font-sans" 
+          <TypingText
+            text="News"
+            className="text-[4rem] md:text-[5.5rem] font-bold text-[#0f4a8a] opacity-75 leading-none tracking-normal font-sans"
           />
-          <TypingText 
-            text="And Events" 
-            className="text-[#0f4a8a] font-black tracking-[0.25em] text-sm md:text-base uppercase ml-3 relative z-10" 
+          <TypingText
+            text="And Events"
+            className="text-[#0f4a8a] font-black tracking-[0.25em] text-sm md:text-base uppercase ml-3 relative z-10"
           />
         </div>
       </div>
