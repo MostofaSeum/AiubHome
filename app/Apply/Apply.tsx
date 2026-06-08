@@ -14,6 +14,7 @@ export default function Apply() {
               src="/images/apply/AKA02504.webp"
               alt="Admission Banner"
               fill
+              sizes="100vw"
               className="object-cover opacity-85"
               priority
             />

@@ -442,6 +442,7 @@ export default function Research() {
                     src={imagePath}
                     alt={`Continuing Education Poster ${index + 1}`}
                     fill
+                    sizes="(max-width: 768px) 100vw, 450px"
                     className="object-contain"
                   />
                 </ScrollStackItem>

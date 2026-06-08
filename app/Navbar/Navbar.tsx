@@ -250,7 +250,9 @@ export default function Navbar({ isScrolled }: { isScrolled: boolean }) {
               <Image
                 src="/images/aiub-logo.png"
                 alt="AIUB Logo"
+                priority
                 fill
+                sizes="80px"
                 className="object-contain"
               />
             </div>

@@ -96,6 +96,7 @@ export default function Faculties() {
                 src={faculty.img}
                 alt={faculty.name}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 20vw"
                 className="object-cover transition-transform duration-700 ease-out scale-100 group-hover:scale-110 will-change-transform"
               />
 

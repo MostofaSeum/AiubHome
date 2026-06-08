@@ -119,6 +119,7 @@ export default function HeroSection() {
               src={slide.url}
               alt={`AIUB Campus View ${idx + 1}`}
               fill
+              sizes="100vw"
               className="object-cover brightness-75"
               priority={idx === 0}
             />

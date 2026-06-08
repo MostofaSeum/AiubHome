@@ -253,6 +253,7 @@ export default function NotableAlumni() {
                   src={person.img}
                   alt={person.name}
                   fill
+                  sizes="192px"
                   className="object-cover object-top"
                   style={{ backgroundColor: "#27272a" }}
                 />

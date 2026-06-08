@@ -77,6 +77,7 @@ export default function DiscoverOurCampus() {
               src={item.img}
               alt={item.title}
               fill
+              sizes="100vw"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/40 to-transparent z-10" />
