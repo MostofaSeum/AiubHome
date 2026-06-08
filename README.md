@@ -31,7 +31,7 @@ https://aiub-home.vercel.app/
 - **Animations & Interaction**: 
   - [Framer Motion](https://www.framer.com/motion/)
   - [GSAP](https://gsap.com/)
-  - [Lenis](https://lenis.studiofreight.com/) (Smooth Scroll)
+  - [Lenis](https://lenis.studiofreight.com/)
   - [React CountUp](https://www.npmjs.com/package/react-countup)
   - [Swiper](https://swiperjs.com/)
 - **Icons**: [Lucide React](https://lucide.dev/)
@@ -48,7 +48,7 @@ Ensure you have Node.js (v20 or higher) installed.
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/MostofaSeum/AiubHome.git
    cd aiubhome
    ```
 
@@ -69,15 +69,11 @@ Ensure you have Node.js (v20 or higher) installed.
 4. **Open the app:**
    Open [http://localhost:3000](http://localhost:3000) with your browser to view the application.
 
-## 👥 Team & Contributions
+## 👤 Author & Developer
 
-| Name | Role | Contribution |
-| :--- | :--- | :--- |
-| **[Member Name]** | [Role, e.g., Lead Developer] | [Specific Contributions, e.g., Set up architecture, implemented GridMotion] |
-| **[Member Name]** | [Role, e.g., UI Designer / Frontend] | [Specific Contributions, e.g., Designed the Hero section and animated navigation] |
-| **[Member Name]** | [Role, e.g., Performance Engineer] | [Specific Contributions, e.g., Removed unused dependencies and optimized image delivery] |
-
-*(Fill out this section with the details of your project members and their specific contributions.)*
-
+**Mostofa Seum**
+- Role: Solo Developer & Designer
+- Contributions: Built the entire application independently, including architecture setup, UI/UX design, animations (Framer Motion, GSAP, Lenis), component development, and performance optimization.
+- GitHub: [@MostofaSeum](https://github.com/MostofaSeum)
 ---
 *This project was bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).*
