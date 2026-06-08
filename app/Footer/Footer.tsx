@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -6,15 +7,19 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
         <div className="md:col-span-2">
           <div className="grid grid-cols-2 relative">
-            <img
-              src="images/footer/AIUB_Glob_Vector_white_opt.svg"
+            <Image
+              src="/images/footer/AIUB_Glob_Vector_white_opt.svg"
               alt="AIUB Globe"
-              className="absolute h-[400px] -left-30"
+              width={400}
+              height={400}
+              className="absolute -left-30 object-contain"
             />
-            <img
-              src="images/footer/logo.svg"
+            <Image
+              src="/images/footer/logo.svg"
               alt="aiub logo"
-              className="pl-50"
+              width={150}
+              height={150}
+              className="pl-50 object-contain"
             />
           </div>
           <h3 className="text-white text-xl font-bold mb-5 font-serif pl-50 pt-3">

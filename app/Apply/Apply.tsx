@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function Apply() {
   return (
@@ -9,10 +10,12 @@ export default function Apply() {
         {/* Background Image*/}
         <div className="absolute inset-0 w-full h-full">
           <div className="fixed inset-0 w-full h-full pointer-events-none">
-            <img
+            <Image
               src="/images/apply/AKA02504.webp"
               alt="Admission Banner"
-              className="w-full h-full object-cover opacity-85"
+              fill
+              className="object-cover opacity-85"
+              priority
             />
             {/* Dark Ambient */}
             <div className="absolute inset-0 bg-black/55 z-10" />

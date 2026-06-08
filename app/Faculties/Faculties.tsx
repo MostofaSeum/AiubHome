@@ -1,6 +1,7 @@
 "use client";
 
 import TypingText from "../TypingText/TypingText";
+import Image from "next/image";
 
 export default function Faculties() {
   const facultyData = [
@@ -91,13 +92,11 @@ export default function Faculties() {
             {/* Visual Boundary Wrapper Layer */}
             <div className="absolute inset-0 rounded-lg overflow-hidden group-hover:overflow-visible transition-all duration-500">
               {/* Base Image */}
-              <img
+              <Image
                 src={faculty.img}
                 alt={faculty.name}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out scale-100 group-hover:scale-110 will-change-transform"
-                onError={(e) => {
-                  e.currentTarget.src = faculty.shortName;
-                }}
+                fill
+                className="object-cover transition-transform duration-700 ease-out scale-100 group-hover:scale-110 will-change-transform"
               />
 
               {/* Standard Shadow Gradient Overlay */}
@@ -113,10 +112,12 @@ export default function Faculties() {
 
             {/* Logo */}
             <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden rounded-lg">
-              <img
+              <Image
                 src={faculty.hoverLogo}
                 alt={faculty.name}
-                className="absolute top-12 left-1/2 -translate-x-1/2 w-24 h-24 object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                width={96}
+                height={96}
+                className="absolute top-12 left-1/2 -translate-x-1/2 object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-500"
               />
             </div>
 

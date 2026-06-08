@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TypingText from "../TypingText/TypingText";
+import Image from "next/image";
 
 const campusItems = [
   {
@@ -72,10 +73,11 @@ export default function DiscoverOurCampus() {
                 : "opacity-0 pointer-events-none"
             }`}
           >
-            <img
+            <Image
               src={item.img}
               alt={item.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/40 to-transparent z-10" />
           </div>

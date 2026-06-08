@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import TypingText from "../TypingText/TypingText";
+import Image from "next/image";
 
 // Faculty filter buttons
 const FACULTIES = [
@@ -119,16 +120,22 @@ export default function NotableAlumni() {
 
   useEffect(() => {
     // Generate delays only on the client after mount to prevent SSR hydration mismatch
-    setDelays([
-      ...FACULTIES.map(() => Math.random()),
-      ...PEOPLE.map(() => Math.random()),
-    ]);
-    setIsMounted(true);
+    // We wrap this state update in a setTimeout to avoid triggering a synchronous warning during rendering.
+    const delayTimer = setTimeout(() => {
+      setIsMounted(true);
+      setDelays([
+        ...FACULTIES.map(() => Math.random()),
+        ...PEOPLE.map(() => Math.random()),
+      ]);
+    }, 0);
     // Clear delay after initial fade-in completes
     const timer = setTimeout(() => {
       setUseDelay(false);
     }, 1500);
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(delayTimer);
+      clearTimeout(timer);
+    };
   }, []);
 
   const handleBackgroundClick = () => {
@@ -234,7 +241,7 @@ export default function NotableAlumni() {
               }}
             >
               <div
-                className={`rounded-full overflow-hidden transition-all duration-700 mx-auto
+                className={`rounded-full overflow-hidden transition-all duration-700 mx-auto relative
                 ${isPersonActive ? `scale-150 grayscale-0 ring-4 ${ringColor} ring-offset-4 ring-offset-white shadow-2xl` : "grayscale hover:grayscale-0"}
               `}
                 style={{
@@ -242,10 +249,11 @@ export default function NotableAlumni() {
                   height: `${person.size / 4}rem`,
                 }}
               >
-                <img
+                <Image
                   src={person.img}
                   alt={person.name}
-                  className="w-full h-full object-cover object-top"
+                  fill
+                  className="object-cover object-top"
                   style={{ backgroundColor: "#27272a" }}
                 />
               </div>

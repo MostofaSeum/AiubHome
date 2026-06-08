@@ -3,6 +3,7 @@ import React, { useEffect, useLayoutEffect, useRef, useCallback } from "react";
 import type { ReactNode } from "react";
 import Lenis from "lenis";
 import TypingText from "../TypingText/TypingText";
+import Image from "next/image";
 
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
@@ -26,6 +27,13 @@ export const ScrollStackItem: React.FC<ScrollStackItemProps> = ({
     {children}
   </div>
 );
+
+interface CardTransform {
+  translateY: number;
+  scale: number;
+  rotation: number;
+  blur: number;
+}
 
 interface ScrollStackProps {
   className?: string;
@@ -63,7 +71,7 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
   const animationFrameRef = useRef<number | null>(null);
   const lenisRef = useRef<Lenis | null>(null);
   const cardsRef = useRef<HTMLElement[]>([]);
-  const lastTransformsRef = useRef(new Map<number, any>());
+  const lastTransformsRef = useRef(new Map<number, CardTransform>());
   const isUpdatingRef = useRef(false);
 
   const calculateProgress = useCallback(
@@ -226,7 +234,6 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     baseScale,
     rotationAmount,
     blurAmount,
-    useWindowScroll,
     onStackComplete,
     calculateProgress,
     parsePercentage,
@@ -431,10 +438,11 @@ export default function Research() {
                   key={index}
                   itemClassName="!p-0 !rounded-3xl overflow-hidden h-[360px] border border-zinc-800 bg-[#161616]"
                 >
-                  <img
+                  <Image
                     src={imagePath}
                     alt={`Continuing Education Poster ${index + 1}`}
-                    className="w-full h-full object-contain"
+                    fill
+                    className="object-contain"
                   />
                 </ScrollStackItem>
               ))}

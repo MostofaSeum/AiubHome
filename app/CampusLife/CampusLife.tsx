@@ -2,6 +2,7 @@
 
 import TypingText from "../TypingText/TypingText";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const campusData = [
   {
@@ -87,14 +88,11 @@ export default function CampusLife() {
             {/* Visual Boundary Wrapper Layer */}
             <div className="absolute inset-0 rounded-lg overflow-hidden transition-all duration-500">
               {/* Base Image */}
-              <img
+              <Image
                 src={campus.img}
                 alt={campus.name}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out scale-100 group-hover:scale-110 will-change-transform"
-                onError={(e) => {
-                  e.currentTarget.onerror = null;
-                  e.currentTarget.src = `https://via.placeholder.com/340x420?text=${encodeURIComponent(campus.name)}`;
-                }}
+                fill
+                className="object-cover transition-transform duration-700 ease-out scale-100 group-hover:scale-110 will-change-transform"
               />
 
               {/* Standard Shadow Gradient Overlay */}
@@ -105,10 +103,12 @@ export default function CampusLife() {
             <div className="absolute inset-0 p-6 flex flex-col justify-end items-start z-20 pointer-events-none">
               <div className="relative w-full flex flex-col items-start">
                 {/* Logo - positioned absolutely above the short name */}
-                <img
+                <Image
                   src={campus.hoverLogo}
                   alt={campus.name}
-                  className="absolute bottom-full left-0 mb-3 w-16 h-16 object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  width={64}
+                  height={64}
+                  className="absolute bottom-full left-0 mb-3 object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 />
 
                 {/* Short name */}

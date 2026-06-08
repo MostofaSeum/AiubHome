@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Image from "next/image";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
@@ -114,10 +115,12 @@ export default function HeroSection() {
             key={idx}
             className="w-full h-full relative swiper-slide-hero"
           >
-            <img
+            <Image
               src={slide.url}
               alt={`AIUB Campus View ${idx + 1}`}
-              className="w-full h-full object-cover brightness-75"
+              fill
+              className="object-cover brightness-75"
+              priority={idx === 0}
             />
 
             {/*Custom AIUB Brand Overlay with Logos*/}
@@ -136,30 +139,40 @@ export default function HeroSection() {
 
                   {/* Faculty Logos Row */}
                   <div className="brand-logos flex flex-wrap gap-3 sm:gap-6 md:gap-8 mt-6 md:mt-8 items-center justify-end w-full">
-                    <img
+                    <Image
                       src="/images/logos/fass-logo.webp"
                       alt="FASS Logo"
-                      className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md"
+                      width={80}
+                      height={80}
+                      className="h-10 w-auto sm:h-16 md:h-20 object-contain filter drop-shadow-md"
                     />
-                    <img
+                    <Image
                       src="/images/logos/fba-logo.webp"
                       alt="FBA Logo"
-                      className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md"
+                      width={80}
+                      height={80}
+                      className="h-10 w-auto sm:h-16 md:h-20 object-contain filter drop-shadow-md"
                     />
-                    <img
+                    <Image
                       src="/images/logos/fe-logo.webp"
                       alt="FBE Logo"
-                      className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md"
+                      width={80}
+                      height={80}
+                      className="h-10 w-auto sm:h-16 md:h-20 object-contain filter drop-shadow-md"
                     />
-                    <img
+                    <Image
                       src="/images/logos/fst-short-logo.webp"
                       alt="FST Logo"
-                      className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md"
+                      width={80}
+                      height={80}
+                      className="h-10 w-auto sm:h-16 md:h-20 object-contain filter drop-shadow-md"
                     />
-                    <img
+                    <Image
                       src="/images/logos/fhls-logo_with_glow.webp"
                       alt="FSHLS Logo"
-                      className="h-10 sm:h-16 md:h-20 object-contain filter drop-shadow-md"
+                      width={80}
+                      height={80}
+                      className="h-10 w-auto sm:h-16 md:h-20 object-contain filter drop-shadow-md"
                     />
                   </div>
                 </div>

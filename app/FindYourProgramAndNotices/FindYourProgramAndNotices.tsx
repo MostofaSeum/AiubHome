@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import TypingText from "../TypingText/TypingText";
+import Image from "next/image";
 
 export default function FindYourProgramAndNotices() {
   const notices = [
@@ -38,10 +39,11 @@ export default function FindYourProgramAndNotices() {
 
         <div className="relative bg-zinc-950 border border-zinc-800 rounded-sm overflow-hidden h-[420px] shadow-lg flex flex-col justify-end p-6 z-10 group">
           {/* Background Student Image */}
-          <img
+          <Image
             src="/images/find-your-program.webp"
             alt="Find Your Program"
-            className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 "
+            fill
+            className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
           />
 
           {/* Bottom Links: Undergraduate & Graduate */}

@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ImportantLinksBar() {
   return (
@@ -22,15 +23,12 @@ export default function ImportantLinksBar() {
           className="flex flex-col items-center group flex-1 md:flex-initial min-w-[120px]"
         >
           <div className="h-12 w-auto mb-1.5 flex items-center justify-center">
-            <img
+            <Image
               src="/images/depositphotos.jpg"
               alt="Sustainability Logo"
-              className="h-full object-contain group-hover:scale-105 transition-transform duration-200"
-              onError={(e) => {
-                // Fallback
-                e.currentTarget.src =
-                  "https://via.placeholder.com/48x48?text=SDG";
-              }}
+              width={48}
+              height={48}
+              className="h-full w-auto object-contain group-hover:scale-105 transition-transform duration-200"
             />
           </div>
           <span className="text-[#52a8e8] group-hover:text-blue-300 transition-colors font-black text-xs md:text-[13px] tracking-wider uppercase leading-none">
@@ -48,14 +46,12 @@ export default function ImportantLinksBar() {
           className="flex flex-col items-center group flex-1 md:flex-initial min-w-[120px]"
         >
           <div className="h-12 w-auto mb-1.5 flex items-center justify-center">
-            <img
+            <Image
               src="/images/newsletter-logo.png"
               alt="AIUB Newsletter"
-              className="h-full object-contain group-hover:scale-105 transition-transform duration-200"
-              onError={(e) => {
-                e.currentTarget.src =
-                  "https://via.placeholder.com/60x48?text=NEWS";
-              }}
+              width={60}
+              height={48}
+              className="h-full w-auto object-contain group-hover:scale-105 transition-transform duration-200"
             />
           </div>
           <span className="text-[#52a8e8] group-hover:text-blue-300 transition-colors font-black text-xs md:text-[13px] tracking-wider uppercase leading-none">
