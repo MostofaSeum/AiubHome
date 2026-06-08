@@ -100,10 +100,10 @@ export default function GridMotion({
                   <div key={itemIndex} className="relative">
                     <div className="relative w-full h-full overflow-hidden rounded-[10px] bg-[#111] flex items-center justify-center text-white text-[1.5rem] min-h-[120px]">
                       {typeof content === "string" &&
-                      content.startsWith("http") ? (
+                      (content.startsWith("http") || content.startsWith("/")) ? (
                         <div
                           className="w-full h-full bg-cover bg-center absolute top-0 left-0"
-                          style={{ backgroundImage: `url(${content})` }}
+                          style={{ backgroundImage: `url("${content}")` }}
                         ></div>
                       ) : (
                         <div className="p-4 text-center z-[1]">{content}</div>
