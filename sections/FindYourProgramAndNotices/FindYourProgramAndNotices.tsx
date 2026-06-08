@@ -2,27 +2,14 @@ import React from "react";
 import Link from "next/link";
 import TypingText from "../../components/ui/TypingText/TypingText";
 import Image from "next/image";
+import { notices } from "../../data/notice";
 
 export default function FindYourProgramAndNotices() {
-  const notices = [
-    { date: "June 01", title: "Final Term Examination Schedule - Spring 2026" },
-    {
-      date: "May 28",
-      title: "Notice Regarding Payment of Tuition Fees for Summer 2026",
-    },
-    {
-      date: "May 25",
-      title: "Registration Schedule for Summer 2026-27 Semester",
-    },
-    {
-      date: "May 20",
-      title: "Convocation Ceremony 2026: General Guidelines for Graduates",
-    },
-    { date: "May 15", title: "Holiday Notice: Holy Eid-ul-Adha 2026" },
-  ];
 
   return (
     <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+
       {/* Find Your Program Section */}
       <div className="lg:col-span-2 flex flex-col justify-between">
         {/* Section Title aligned with Notice Board Header */}

@@ -57,3 +57,8 @@ export interface QuickLink {
   icon: string;
   href: string;
 }
+
+export interface Notice {
+  date: string;
+  title: string;
+}
