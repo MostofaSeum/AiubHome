@@ -4,7 +4,7 @@ A modern, highly interactive landing page for American International University-
 
 ## 🔗 Live Link
 
-[Insert Live Link Here]
+
 
 ## ✨ Features
 
@@ -19,9 +19,9 @@ A modern, highly interactive landing page for American International University-
 
 | Hero Section | News & Events |
 |:---:|:---:|
-| ![Hero Placeholder](public/images/placeholder.webp) | ![News Placeholder](public/images/placeholder.webp) |
+| ![Hero Placeholder](public/images/readme/{FB4CE3FE-2B09-4E48-A9F8-344BD737DA3F}.png) | ![News Placeholder](public/images/readme/{71161294-F373-4777-BFDF-E535FD2628F1}.png) |
 
-*(Replace with actual screenshot paths in the `/public` folder)*
+
 
 ## 🛠 Technology Stack
 
