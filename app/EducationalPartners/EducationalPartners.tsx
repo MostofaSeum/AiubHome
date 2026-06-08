@@ -1,5 +1,6 @@
+"use client";
+
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import TypingText from '../TypingText/TypingText';
 
 export type LogoItem =
   | {

@@ -1,5 +1,3 @@
-"use client";
-
 import TypingText from '../TypingText/TypingText';
 import GridMotion from '../GridMotion/GridMotion';
 

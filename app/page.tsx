@@ -1,9 +1,4 @@
-"use client";
-
-import React from 'react';
-import TopHeader from './TopHeader/TopHeader';
-import Navbar from './Navbar/Navbar';
-import SubNavbar from './SubNavbar/SubNavbar';
+import HeaderWrapper from './HeaderWrapper';
 import HeroSection from './HeroSection/HeroSection';
 import ImportantLinksBar from './ImportantLinksBar/ImportantLinksBar';
 import FindYourProgramAndNotices from './FindYourProgramAndNotices/FindYourProgramAndNotices';
@@ -21,31 +16,9 @@ import StrategicPartners from './StrategicPartners/StrategicPartners';
 import EducationalPartners from './EducationalPartners/EducationalPartners';
 
 export default function Home() {
-  const [isScrolled, setIsScrolled] = React.useState(false);
-
-  React.useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   return (
     <div className="min-h-screen flex flex-col font-sans bg-white">
-      <header className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300">
-        <TopHeader isScrolled={isScrolled} />
-        <Navbar isScrolled={isScrolled} />
-        <div className={`transition-all duration-300 ease-in-out ${isScrolled ? 'h-0 opacity-0 overflow-hidden' : 'h-auto opacity-100'}`}>
-          <SubNavbar isScrolled={isScrolled} />
-        </div>
-      </header>
+      <HeaderWrapper />
       <HeroSection />
       <main className="flex-grow">
         <ImportantLinksBar />
