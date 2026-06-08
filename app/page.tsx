@@ -1,19 +1,19 @@
-import HeaderWrapper from "./HeaderWrapper";
-import HeroSection from "./HeroSection/HeroSection";
-import ImportantLinksBar from "./ImportantLinksBar/ImportantLinksBar";
-import FindYourProgramAndNotices from "./FindYourProgramAndNotices/FindYourProgramAndNotices";
-import NewsAndEvents from "./NewsAndEvents/NewsAndEvents";
-import Faculties from "./Faculties/Faculties";
-import Footer from "./Footer/Footer";
-import DiscoverOurCampus from "./DiscoverOurCampus/DiscoverOurCampus";
-import TalentsGotSparked from "./TalentsGotSparked/TalentsGotSparked";
-import Apply from "./Apply/Apply";
-import FactsbAndFigures from "./FactsAndFigures/FactsAndFIgures";
-import CampusLife from "./CampusLife/CampusLife";
-import Research from "./Research/Research";
-import NotableAlumni from "./NotableAlumni/NotableAlumni";
-import StrategicPartners from "./StrategicPartners/StrategicPartners";
-import EducationalPartners from "./EducationalPartners/EducationalPartners";
+import HeaderWrapper from "../components/layout/HeaderWrapper";
+import HeroSection from "../sections/HeroSection/HeroSection";
+import ImportantLinksBar from "../components/layout/ImportantLinksBar/ImportantLinksBar";
+import FindYourProgramAndNotices from "../sections/FindYourProgramAndNotices/FindYourProgramAndNotices";
+import NewsAndEvents from "../sections/NewsAndEvents/NewsAndEvents";
+import Faculties from "../sections/Faculties/Faculties";
+import Footer from "../components/layout/Footer/Footer";
+import DiscoverOurCampus from "../sections/DiscoverOurCampus/DiscoverOurCampus";
+import TalentsGotSparked from "../sections/TalentsGotSparked/TalentsGotSparked";
+import Apply from "../sections/Apply/Apply";
+import FactsbAndFigures from "../sections/FactsAndFigures/FactsAndFIgures";
+import CampusLife from "../sections/CampusLife/CampusLife";
+import Research from "../sections/Research/Research";
+import NotableAlumni from "../sections/NotableAlumni/NotableAlumni";
+import StrategicPartners from "../sections/StrategicPartners/StrategicPartners";
+import EducationalPartners from "../sections/EducationalPartners/EducationalPartners";
 
 export default function Home() {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import TypingText from "../TypingText/TypingText";
+import TypingText from "../../components/ui/TypingText/TypingText";
 import Image from "next/image";
 
 export default function FindYourProgramAndNotices() {

@@ -1,6 +1,6 @@
 "use client";
 
-import TypingText from "../TypingText/TypingText";
+import TypingText from "../../components/ui/TypingText/TypingText";
 import { motion } from "framer-motion";
 import Image from "next/image";
 

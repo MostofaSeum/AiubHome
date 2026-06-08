@@ -8,25 +8,7 @@ import React, {
   useState,
 } from "react";
 import Image from "next/image";
-
-export type LogoItem =
-  | {
-      node: React.ReactNode;
-      href?: string;
-      title?: string;
-      ariaLabel?: string;
-    }
-  | {
-      src: string;
-      alt?: string;
-      href?: string;
-      title?: string;
-      srcSet?: string;
-      sizes?: string;
-      width?: number;
-      height?: number;
-      ariaLabel?: string;
-    };
+import { LogoItem } from "../../types";
 
 export interface LogoLoopProps {
   logos: LogoItem[];
@@ -57,8 +39,6 @@ const toCssLength = (value?: number | string): string | undefined =>
 
 const cx = (...parts: Array<string | false | null | undefined>) =>
   parts.filter(Boolean).join(" ");
-
-
 
 const useAnimationLoop = (
   trackRef: React.RefObject<HTMLDivElement | null>,
@@ -530,134 +510,4 @@ export const LogoLoop = React.memo<LogoLoopProps>(
 
 LogoLoop.displayName = "LogoLoop";
 
-export default function EducationalPartners() {
-  const partnerLogos: LogoItem[] = [
-    {
-      node: (
-        <div className="flex items-center gap-2 font-bold text-[#1f3a93] text-lg select-none">
-          <svg
-            className="w-7 h-7 flex-shrink-0"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z" />
-          </svg>
-          <span className="tracking-tight font-serif">University of Dhaka</span>
-        </div>
-      ),
-    },
-    {
-      node: (
-        <div className="flex items-center gap-2 font-black text-[#800000] text-xl select-none">
-          <svg
-            className="w-6 h-6 flex-shrink-0"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z" />
-          </svg>
-          <span className="tracking-tight uppercase">BUET</span>
-        </div>
-      ),
-    },
-    {
-      node: (
-        <div className="flex items-center gap-2 font-bold text-[#003366] text-lg select-none">
-          <svg
-            className="w-5 h-6 flex-shrink-0 text-[#fbb034]"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-          </svg>
-          <span className="font-serif tracking-tight">
-            North South University
-          </span>
-        </div>
-      ),
-    },
-    {
-      node: (
-        <div className="flex items-center gap-1.5 font-bold text-[#006bb6] text-xl select-none">
-          <svg
-            className="w-6 h-6 flex-shrink-0"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-          </svg>
-          <span className="tracking-tight">BRAC</span>
-          <span className="font-light tracking-tight">University</span>
-        </div>
-      ),
-    },
-    {
-      node: (
-        <div className="flex items-center gap-1 font-black text-xl select-none tracking-tighter">
-          <span className="text-[#0f4a8a]">IUB</span>
-          <svg
-            className="w-5 h-5 ml-0.5 text-[#0f4a8a]"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M12 2L1 21h22L12 2zm0 4.5l5.5 11h-11z" />
-          </svg>
-        </div>
-      ),
-    },
-    {
-      node: (
-        <div className="flex items-center gap-2 font-bold text-[#006a4e] text-lg select-none">
-          {/* Rajshahi University */}
-          <div className="relative flex items-center justify-center">
-            <svg
-              className="w-7 h-7 flex-shrink-0 text-[#f4a900]"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 100-16 8 8 0 000 16z" />
-            </svg>
-            <svg
-              className="w-3.5 h-3.5 absolute text-[#006a4e]"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M12 3c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-            </svg>
-          </div>
-          <span className="tracking-tight font-serif">Rajshahi University</span>
-        </div>
-      ),
-    },
-  ];
-
-  return (
-    <div className="w-full border-t border-zinc-200 py-16 px-4 sm:px-6 lg:px-10">
-      <div className="max-w-xl mx-auto flex justify-center items-center mb-10">
-        <div className="flex items-baseline select-none relative font-sans tracking-normal leading-none">
-          <h3 className="text-[1.5rem] md:text-[2rem] font-bold text-[#0f4a8a] uppercase ml-4 tracking-wider ">
-            Educational Partners
-          </h3>
-        </div>
-      </div>
-
-      <div className="w-full  py-8 px-4 flex justify-center items-center">
-        <LogoLoop
-          logos={partnerLogos}
-          speed={40}
-          direction="left"
-          logoHeight={32}
-          gap={70}
-          pauseOnHover={true}
-          scaleOnHover={true}
-          fadeOut={true}
-        />
-      </div>
-    </div>
-  );
-}
+export default LogoLoop;

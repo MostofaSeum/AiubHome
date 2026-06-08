@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import TypingText from "../TypingText/TypingText";
+import TypingText from "../../components/ui/TypingText/TypingText";
 import Image from "next/image";
 
 const campusItems = [

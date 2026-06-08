@@ -2,7 +2,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useCallback } from "react";
 import type { ReactNode } from "react";
 import Lenis from "lenis";
-import TypingText from "../TypingText/TypingText";
+import TypingText from "../../components/ui/TypingText/TypingText";
 import Image from "next/image";
 
 const useIsomorphicLayoutEffect =

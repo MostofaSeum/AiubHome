@@ -1,5 +1,5 @@
 "use client";
-import TypingText from "../TypingText/TypingText";
+import TypingText from "../../components/ui/TypingText/TypingText";
 import CountUp from "react-countup";
 
 export default function FactsAndFigures() {
