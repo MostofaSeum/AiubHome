@@ -4,7 +4,7 @@ A modern, highly interactive landing page for American International University-
 
 ## 🔗 Live Link
 
-
+https://aiub-home.vercel.app/
 
 ## ✨ Features
 
