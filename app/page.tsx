@@ -1,19 +1,19 @@
-import HeaderWrapper from "../components/layout/HeaderWrapper";
-import HeroSection from "../sections/HeroSection/HeroSection";
-import ImportantLinksBar from "../components/layout/ImportantLinksBar/ImportantLinksBar";
-import FindYourProgramAndNotices from "../sections/FindYourProgramAndNotices/FindYourProgramAndNotices";
-import NewsAndEvents from "../sections/NewsAndEvents/NewsAndEvents";
-import Faculties from "../sections/Faculties/Faculties";
-import Footer from "../components/layout/Footer/Footer";
-import DiscoverOurCampus from "../sections/DiscoverOurCampus/DiscoverOurCampus";
-import TalentsGotSparked from "../sections/TalentsGotSparked/TalentsGotSparked";
-import Apply from "../sections/Apply/Apply";
-import FactsbAndFigures from "../sections/FactsAndFigures/FactsAndFIgures";
-import CampusLife from "../sections/CampusLife/CampusLife";
-import Research from "../sections/Research/Research";
-import NotableAlumni from "../sections/NotableAlumni/NotableAlumni";
-import StrategicPartners from "../sections/StrategicPartners/StrategicPartners";
-import EducationalPartners from "../sections/EducationalPartners/EducationalPartners";
+import HeaderWrapper from "@/homepage/components/layout/HeaderWrapper";
+import HeroSection from "@/homepage/sections/HeroSection/HeroSection";
+import ImportantLinksBar from "@/homepage/components/layout/ImportantLinksBar/ImportantLinksBar";
+import FindYourProgramAndNotices from "@/homepage/sections/FindYourProgramAndNotices/FindYourProgramAndNotices";
+import NewsAndEvents from "@/homepage/sections/NewsAndEvents/NewsAndEvents";
+import Faculties from "@/homepage/sections/Faculties/Faculties";
+import Footer from "@/homepage/components/layout/Footer/Footer";
+import DiscoverOurCampus from "@/homepage/sections/DiscoverOurCampus/DiscoverOurCampus";
+import TalentsGotSparked from "@/homepage/sections/TalentsGotSparked/TalentsGotSparked";
+import Apply from "@/homepage/sections/Apply/Apply";
+import FactsbAndFigures from "@/homepage/sections/FactsAndFigures/FactsAndFIgures";
+import CampusLife from "@/homepage/sections/CampusLife/CampusLife";
+import Research from "@/homepage/sections/Research/Research";
+import NotableAlumni from "@/homepage/sections/NotableAlumni/NotableAlumni";
+import StrategicPartners from "@/homepage/sections/StrategicPartners/StrategicPartners";
+import EducationalPartners from "@/homepage/sections/EducationalPartners/EducationalPartners";
 
 export default function Home() {
   return (

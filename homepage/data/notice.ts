@@ -1,4 +1,4 @@
-import { Notice } from "@/types";
+import { Notice } from "@/homepage/types";
 
 export const notices:Notice[] = [
   { date: "June 01", title: "Final Term Examination Schedule - Spring 2026" },
