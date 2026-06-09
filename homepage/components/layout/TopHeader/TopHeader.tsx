@@ -29,11 +29,11 @@ export default function TopHeader({ isScrolled }: { isScrolled: boolean }) {
             />
           </svg>
         </button>
-        <Link href="#" className="hover:text-blue-300 transition-colors">
+        <Link href="/login" className="hover:text-blue-300 transition-colors">
           Login
         </Link>
-        <Link href="#" className="hover:text-blue-300 transition-colors">
-          Web Mail
+        <Link href="/login" className="hover:text-blue-300 transition-colors">
+          Sign Up
         </Link>
         <Link href="#" className="hover:text-blue-300 transition-colors">
           MS Teams
