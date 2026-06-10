@@ -9,7 +9,7 @@ export default async function DashboardPage() {
   });
 
   if (!session) {
-    return redirect("/auth");
+    return redirect("/login");
   }
   return <DashboardClientPage session={session} />;
 }

@@ -14,11 +14,17 @@ import Research from "@/homepage/sections/Research/Research";
 import NotableAlumni from "@/homepage/sections/NotableAlumni/NotableAlumni";
 import StrategicPartners from "@/homepage/sections/StrategicPartners/StrategicPartners";
 import EducationalPartners from "@/homepage/sections/EducationalPartners/EducationalPartners";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   return (
     <div className="min-h-screen flex flex-col font-sans bg-white">
-      <HeaderWrapper />
+      <HeaderWrapper session={session} />
       <HeroSection />
       <main className="flex-grow">
         <ImportantLinksBar />

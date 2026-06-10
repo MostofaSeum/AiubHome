@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-export default function TopHeader({ isScrolled }: { isScrolled: boolean }) {
+export default function TopHeader({ isScrolled, session }: { isScrolled: boolean, session?: any }) {
   return (
     <div
       className={`transition-all duration-300 text-[13px] py-1.5 px-4 md:px-8 flex justify-between items-center ${isScrolled ? "text-[#52a8e8] bg-[#2c2c2c]" : "text-white bg-transparent backdrop-blur-[1px] border-b border-white/5"}`}
@@ -29,12 +29,20 @@ export default function TopHeader({ isScrolled }: { isScrolled: boolean }) {
             />
           </svg>
         </button>
-        <Link href="/login" className="hover:text-blue-300 transition-colors">
-          Login
-        </Link>
-        <Link href="/login" className="hover:text-blue-300 transition-colors">
-          Sign Up
-        </Link>
+        {session?.user ? (
+          <Link href="/dashboard" className="hover:text-blue-300 transition-colors">
+            Dashboard
+          </Link>
+        ) : (
+          <>
+            <Link href="/login" className="hover:text-blue-300 transition-colors">
+              Login
+            </Link>
+            <Link href="#" className="hover:text-blue-300 transition-colors">
+              Web Mail
+            </Link>
+          </>
+        )}
         <Link href="#" className="hover:text-blue-300 transition-colors">
           MS Teams
         </Link>

@@ -12,7 +12,7 @@ export default function DashboardClientPage({session}: {session: { session: Sess
   const router = useRouter();
   const handleSignOut = async () => {
     await signOut();
-    router.push("/auth");
+    router.push("/login");
   };
 
   return (

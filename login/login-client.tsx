@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn, signUp, signInSocial } from "@/lib/actions/auth-actions";
 
+import { isRedirectError } from "next/dist/client/components/redirect-error";
+
 export default function AuthClientPage() {
   const [isSignIn, setIsSignIn] = useState(true);
   const [email, setEmail] = useState("");
@@ -23,6 +25,9 @@ export default function AuthClientPage() {
     try {
           await signInSocial(provider);
     } catch (err) {
+      if (isRedirectError(err)) {
+        throw err;
+      }
       setError(
         `Error authenticating with ${provider}: ${
           err instanceof Error ? err.message : "Unknown error"
@@ -40,14 +45,20 @@ export default function AuthClientPage() {
 
     try {
       if (isSignIn) {
-        const result = await signIn(password,email);
+        const result = await signIn(password, email);
         if(!result.user){
           setError("Invalid Email or Password");
+        } else {
+          router.push("/");
+          router.refresh();
         }
       } else {
-        const result = await signUp(name,email,password)
+        const result = await signUp(name, email, password)
         if(!result.user){
           setError("Error creating account");
+        } else {
+          router.push("/");
+          router.refresh();
         }
       }
     } catch (err) {

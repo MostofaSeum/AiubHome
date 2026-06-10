@@ -5,7 +5,7 @@ import TopHeader from "./TopHeader/TopHeader";
 import Navbar from "./Navbar/Navbar";
 import SubNavbar from "./SubNavbar/SubNavbar";
 
-export default function HeaderWrapper() {
+export default function HeaderWrapper({ session }: { session?: any }) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function HeaderWrapper() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300">
-      <TopHeader isScrolled={isScrolled} />
+      <TopHeader isScrolled={isScrolled} session={session} />
       <Navbar isScrolled={isScrolled} />
       <div
         className={`transition-all duration-300 ease-in-out ${isScrolled ? "h-0 opacity-0 overflow-hidden" : "h-auto opacity-100"}`}
