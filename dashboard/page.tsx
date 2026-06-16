@@ -3,6 +3,7 @@ import DashboardClientPage from "./dashboard-client";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getNotice } from "@/lib/actions/notice-action";
+import { getNewsEvents } from "@/lib/actions/news-event-action";
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({
@@ -13,5 +14,12 @@ export default async function DashboardPage() {
     return redirect("/login");
   }
   const notices = await getNotice();
-  return <DashboardClientPage session={session} initialNotices={notices || []} />;
+  const newsEvents = await getNewsEvents();
+  return (
+    <DashboardClientPage
+      session={session}
+      initialNotices={notices || []}
+      initialNewsEvents={newsEvents || []}
+    />
+  );
 }

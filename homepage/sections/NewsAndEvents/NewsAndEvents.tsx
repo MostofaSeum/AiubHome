@@ -1,9 +1,15 @@
 import TypingText from "../../components/ui/TypingText/TypingText";
 import GridMotion from "../../components/ui/GridMotion/GridMotion";
+import { getNewsEvents } from "@/lib/actions/news-event-action";
 
-import { newsAndEventsImages } from "../../data/news";
+export default async function NewsAndEvents() {
+  const dbEvents = (await getNewsEvents()) || [];
+  
+  // Filter for published items and extract their image URLs
+  const dbImages = dbEvents
+    .filter((event) => event.status === "published")
+    .map((event) => event.imageUrl);
 
-export default function NewsAndEvents() {
   return (
     <div className="relative w-full bg-[#faf6f6ff] border-t border-zinc-900 overflow-hidden py-16 px-4 sm:px-6 lg:px-8">
       {/* Title as it was before */}
@@ -20,9 +26,15 @@ export default function NewsAndEvents() {
         </div>
       </div>
 
-      {/* GridMotion Component inside */}
+      {/* GridMotion Component inside - only using DB images */}
       <div className="w-full h-[500px] relative z-10">
-        <GridMotion items={newsAndEventsImages} gradientColor="#faf6f6ff" />
+        {dbImages.length > 0 ? (
+          <GridMotion items={dbImages} gradientColor="#faf6f6ff" />
+        ) : (
+          <div className="flex items-center justify-center h-full border-2 border-dashed border-gray-300 rounded-md">
+            <p className="text-gray-500 text-lg">No news or events uploaded yet.</p>
+          </div>
+        )}
       </div>
     </div>
   );

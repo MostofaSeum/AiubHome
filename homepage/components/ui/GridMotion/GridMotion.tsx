@@ -17,13 +17,38 @@ export default function GridMotion({
   const autoXRef = React.useRef<number>(0);
   const isHoveredRef = React.useRef<boolean>(false);
 
-  const totalItems = 28;
-  const defaultItems = Array.from(
-    { length: totalItems },
-    (_, index) => `Item ${index + 1}`,
-  );
-  const combinedItems =
-    items.length > 0 ? items.slice(0, totalItems) : defaultItems;
+  // We have a 4x7 grid (4 rows, 7 columns)
+  // Let's define the slots in order of priority (middle rows first, center columns first)
+  const prioritySlots = [
+    // Middle Rows (Row 1 and 2), Center Columns
+    { r: 1, c: 3 }, { r: 2, c: 3 },
+    { r: 1, c: 2 }, { r: 1, c: 4 },
+    { r: 2, c: 2 }, { r: 2, c: 4 },
+    { r: 1, c: 1 }, { r: 1, c: 5 },
+    { r: 2, c: 1 }, { r: 2, c: 5 },
+    { r: 1, c: 0 }, { r: 1, c: 6 },
+    { r: 2, c: 0 }, { r: 2, c: 6 },
+    
+    // Top and Bottom Rows (Row 0 and 3), Center Columns
+    { r: 0, c: 3 }, { r: 3, c: 3 },
+    { r: 0, c: 2 }, { r: 0, c: 4 },
+    { r: 3, c: 2 }, { r: 3, c: 4 },
+    { r: 0, c: 1 }, { r: 0, c: 5 },
+    { r: 3, c: 1 }, { r: 3, c: 5 },
+    { r: 0, c: 0 }, { r: 0, c: 6 },
+    { r: 3, c: 0 }, { r: 3, c: 6 }
+  ];
+
+  // Initialize a 4x7 grid with null values
+  const gridData = Array.from({ length: 4 }, () => Array(7).fill(null));
+
+  // Place items into the grid using the priority slot coordinates
+  items.forEach((item, index) => {
+    if (index < prioritySlots.length) {
+      const { r, c } = prioritySlots[index];
+      gridData[r][c] = item;
+    }
+  });
 
   React.useEffect(() => {
     if (typeof window === "undefined") return;
@@ -95,18 +120,25 @@ export default function GridMotion({
               }}
             >
               {Array.from({ length: 7 }, (_, itemIndex) => {
-                const content = combinedItems[rowIndex * 7 + itemIndex];
+                const content = gridData[rowIndex][itemIndex];
+                const hasImage = typeof content === "string" && (content.startsWith("http") || content.startsWith("/"));
+                
                 return (
                   <div key={itemIndex} className="relative">
-                    <div className="relative w-full h-full overflow-hidden rounded-[10px] bg-[#111] flex items-center justify-center text-white text-[1.5rem] min-h-[120px]">
-                      {typeof content === "string" &&
-                      (content.startsWith("http") || content.startsWith("/")) ? (
+                    <div 
+                      className={`relative w-full h-full overflow-hidden rounded-[10px] flex items-center justify-center min-h-[120px] transition-colors ${
+                        hasImage 
+                          ? "bg-[#111]" 
+                          : "bg-zinc-200/30 border border-zinc-200/50"
+                      }`}
+                    >
+                      {hasImage ? (
                         <div
                           className="w-full h-full bg-cover bg-center absolute top-0 left-0"
                           style={{ backgroundImage: `url("${content}")` }}
                         ></div>
                       ) : (
-                        <div className="p-4 text-center z-[1]">{content}</div>
+                        content && <div className="p-4 text-center z-[1] text-gray-700">{content}</div>
                       )}
                     </div>
                   </div>
