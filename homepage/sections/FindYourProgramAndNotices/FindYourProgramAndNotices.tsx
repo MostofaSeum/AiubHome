@@ -5,7 +5,7 @@ import Image from "next/image";
 import { getNotice } from "@/lib/actions/notice-action";
 
 export default async function FindYourProgramAndNotices() {
-  const dbNotices = (await getNotice()) || [];
+  const dbNotices = (await getNotice({ status: "published" })) || [];
 
   return (
     <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-10">

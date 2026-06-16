@@ -6,12 +6,13 @@ import { success } from "better-auth";
 import { revalidatePath } from "next/cache";
 
 //fetch all notice from database
-export async function getNotice() {
+export async function getNotice(filter: any = {}) {
   try {
-    const notices = await Notice.find({}).sort({ createdAt: -1 });
+    const notices = await Notice.find(filter).sort({ createdAt: -1 });
     return notices.map((notice) => ({
       id: notice._id.toString(),
       name: notice.name,
+      status: notice.status,
       userId: notice.userId,
       createdAt: notice.createdAt.toString(),
       updatedAt: notice.updatedAt.toString(),
@@ -23,10 +24,10 @@ export async function getNotice() {
 
 //create a new notice
 
-export async function createNotice(name: string, userId: string) {
+export async function createNotice(name: string, userId: string, status: string = 'draft') {
   await connectDB();
   try {
-    const newNotice = await Notice.create({ name, userId });
+    const newNotice = await Notice.create({ name, userId, status });
     revalidatePath("/dashboard");
     revalidatePath("/");
     return {
@@ -41,12 +42,12 @@ export async function createNotice(name: string, userId: string) {
 
 //update an existing notice
 
-export async function updateNotice(id: string, name: string) {
+export async function updateNotice(id: string, name: string, status: string) {
   await connectDB();
   try {
     const updateNotice = await Notice.findByIdAndUpdate(
       id,
-      { name },
+      { name, status },
       { new: true },
     );
     revalidatePath("/dashboard");

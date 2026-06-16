@@ -17,6 +17,7 @@ export default function DashboardClientPage({
 }) {
   const [notices, setNotices] = useState(initialNotices || []);
   const [noticeName, setNoticeName] = useState("");
+  const [noticeStatus, setNoticeStatus] = useState("draft");
   const [editingNoticeId, setEditingNoticeId] = useState<string | null>(null);
   const user = session.user;
   const router = useRouter();
@@ -36,30 +37,33 @@ export default function DashboardClientPage({
 
     if (editingNoticeId) {
       //update exisitng notice
-      const res = await updateNotice(editingNoticeId, noticeName);
+      const res = await updateNotice(editingNoticeId, noticeName, noticeStatus);
       if (res?.success) {
         setNotices(
           notices.map((n) =>
-            n.id === editingNoticeId ? { ...n, name: noticeName } : n,
+            n.id === editingNoticeId ? { ...n, name: noticeName, status: noticeStatus } : n,
           ),
         );
         setEditingNoticeId(null);
         setNoticeName("");
+        setNoticeStatus("draft");
       }
     } else {
       //create new notice
-      const res = await createNotice(noticeName, session.user.id);
+      const res = await createNotice(noticeName, session.user.id, noticeStatus);
       if (res.success && res.notice) {
         setNotices([
           {
             id: res.notice._id,
             name: res.notice.name,
             userId: res.notice.userId,
+            status: res.notice.status,
             createdAt: new Date().toString(),
           },
           ...notices
         ]);
         setNoticeName("");
+        setNoticeStatus("draft");
       }
     }
   };
@@ -78,6 +82,7 @@ export default function DashboardClientPage({
 const handleCancelEdit = () => {
   setEditingNoticeId(null);
   setNoticeName("");
+  setNoticeStatus("draft");
 };
 
 
@@ -167,9 +172,23 @@ const handleCancelEdit = () => {
                       value={noticeName}
                       onChange={(e) => setNoticeName(e.target.value)}
                       rows={4}
+                      required
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900"
                       placeholder="Type the notice content..."
                     />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Status
+                    </label>
+                    <select
+                      value={noticeStatus}
+                      onChange={(e) => setNoticeStatus(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900"
+                    >
+                      <option value="draft">Draft (Hidden)</option>
+                      <option value="published">Published (Public)</option>
+                    </select>
                   </div>
                   <div className="flex gap-2">
                     <button
@@ -204,18 +223,30 @@ const handleCancelEdit = () => {
                         className="p-4 bg-white rounded-md border border-gray-200 shadow-sm flex justify-between items-start gap-4"
                       >
                         <div className="flex-1">
-                          <p className="text-gray-800 text-sm font-medium whitespace-pre-wrap">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span
+                              className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
+                                notice.status === "published"
+                                  ? "bg-green-100 text-green-800"
+                                  : "bg-gray-100 text-gray-800"
+                              }`}
+                            >
+                              {notice.status === "published" ? "Published" : "Draft"}
+                            </span>
+                            <span className="text-[10px] text-gray-400">
+                              {new Date(notice.createdAt).toLocaleString()}
+                            </span>
+                          </div>
+                          <p className="text-gray-800 text-sm font-medium whitespace-pre-wrap mt-1">
                             {notice.name}
                           </p>
-                          <span className="text-[10px] text-gray-400 block mt-1">
-                            {new Date(notice.createdAt).toLocaleString()}
-                          </span>
                         </div>
                         <div className="flex gap-2 flex-shrink-0">
                           <button
                             onClick={() => {
                               setEditingNoticeId(notice.id);
                               setNoticeName(notice.name);
+                              setNoticeStatus(notice.status || "draft");
                             }}
                             className="text-xs font-semibold text-indigo-600 hover:text-indigo-900"
                           >
