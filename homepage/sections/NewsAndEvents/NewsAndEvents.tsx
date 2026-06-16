@@ -12,7 +12,6 @@ export default async function NewsAndEvents() {
 
   return (
     <div className="relative w-full bg-[#faf6f6ff] border-t border-zinc-900 overflow-hidden py-16 px-4 sm:px-6 lg:px-8">
-      {/* Title as it was before */}
       <div className="max-w-7xl mx-auto flex justify-between items-center mb-10">
         <div className="flex items-baseline select-none relative">
           <TypingText
@@ -26,7 +25,6 @@ export default async function NewsAndEvents() {
         </div>
       </div>
 
-      {/* GridMotion Component inside - only using DB images */}
       <div className="w-full h-[500px] relative z-10">
         {dbImages.length > 0 ? (
           <GridMotion items={dbImages} gradientColor="#faf6f6ff" />
