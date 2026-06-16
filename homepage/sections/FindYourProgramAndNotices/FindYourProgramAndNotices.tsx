@@ -2,9 +2,10 @@ import React from "react";
 import Link from "next/link";
 import TypingText from "../../components/ui/TypingText/TypingText";
 import Image from "next/image";
-import { notices } from "../../data/notice";
+import { getNotice } from "@/lib/actions/notice-action";
 
-export default function FindYourProgramAndNotices() {
+export default async function FindYourProgramAndNotices() {
+  const dbNotices = (await getNotice()) || [];
 
   return (
     <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -96,29 +97,35 @@ export default function FindYourProgramAndNotices() {
         </div>
         <div className="bg-white border border-gray-200 flex flex-col h-[420px]">
           <div className="flex-grow overflow-y-auto p-4 flex flex-col gap-4">
-            {notices.map((notice, idx) => (
-              <div
-                key={idx}
-                className="flex gap-4 pb-4 border-b border-gray-100 last:border-0 group"
-              >
-                <div className="flex-shrink-0 bg-gray-50 border border-gray-200 text-[#0f4a8a] p-2 text-center w-[70px] h-[70px] flex flex-col justify-center shadow-sm">
-                  <span className="text-xs uppercase font-semibold">
-                    {notice.date.split(" ")[0]}
-                  </span>
-                  <span className="font-bold text-xl leading-none mt-1">
-                    {notice.date.split(" ")[1]}
-                  </span>
+            {dbNotices.map((notice, idx) => {
+              const dateObj = notice.createdAt ? new Date(notice.createdAt) : new Date();
+              const month = dateObj.toLocaleString("en-US", { month: "short" });
+              const day = dateObj.toLocaleString("en-US", { day: "2-digit" });
+
+              return (
+                <div
+                  key={notice.id || idx}
+                  className="flex gap-4 pb-4 border-b border-gray-100 last:border-0 group"
+                >
+                  <div className="flex-shrink-0 bg-gray-50 border border-gray-200 text-[#0f4a8a] p-2 text-center w-[70px] h-[70px] flex flex-col justify-center shadow-sm">
+                    <span className="text-xs uppercase font-semibold">
+                      {month}
+                    </span>
+                    <span className="font-bold text-xl leading-none mt-1">
+                      {day}
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <Link
+                      href="#"
+                      className="text-[15px] text-gray-800 font-medium group-hover:text-[#0f4a8a] transition-colors leading-snug"
+                    >
+                      {notice.name}
+                    </Link>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <Link
-                    href="#"
-                    className="text-[15px] text-gray-800 font-medium group-hover:text-[#0f4a8a] transition-colors leading-snug"
-                  >
-                    {notice.title}
-                  </Link>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           <div className="p-4 bg-gray-50 border-t border-gray-200 text-center">
             <Link

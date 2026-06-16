@@ -4,16 +4,83 @@ import { auth } from "@/lib/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-
 import { Session, User } from "better-auth";
+import { useState } from "react";
+import { createNotice, deleteNotice, updateNotice } from "@/lib/actions/notice-action";
 
-export default function DashboardClientPage({session}: {session: { session: Session; user: User }}) {
+export default function DashboardClientPage({
+  session,
+  initialNotices,
+}: {
+  session: { session: Session; user: User };
+  initialNotices: any[];
+}) {
+  const [notices, setNotices] = useState(initialNotices || []);
+  const [noticeName, setNoticeName] = useState("");
+  const [editingNoticeId, setEditingNoticeId] = useState<string | null>(null);
   const user = session.user;
   const router = useRouter();
+
   const handleSignOut = async () => {
     await signOut();
     router.push("/login");
   };
+
+  // save notice handle
+  const handleSaveNotice = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!noticeName.trim()) {
+      return;
+    }
+
+    if (editingNoticeId) {
+      //update exisitng notice
+      const res = await updateNotice(editingNoticeId, noticeName);
+      if (res?.success) {
+        setNotices(
+          notices.map((n) =>
+            n.id === editingNoticeId ? { ...n, name: noticeName } : n,
+          ),
+        );
+        setEditingNoticeId(null);
+        setNoticeName("");
+      }
+    } else {
+      //create new notice
+      const res = await createNotice(noticeName, session.user.id);
+      if (res.success && res.notice) {
+        setNotices([
+          {
+            id: res.notice._id,
+            name: res.notice.name,
+            userId: res.notice.userId,
+            createdAt: new Date().toString(),
+          },
+          ...notices
+        ]);
+        setNoticeName("");
+      }
+    }
+  };
+
+  //Delete Notice
+  const handleDelete = async (id: string) => {
+  if (confirm("Are you sure you want to delete this notice?")) {
+    const res = await deleteNotice(id);
+    if (res.success) {
+      setNotices(notices.filter((n) => n.id !== id));
+    }
+  }
+};
+
+// Cancel button
+const handleCancelEdit = () => {
+  setEditingNoticeId(null);
+  setNoticeName("");
+};
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -76,113 +143,97 @@ export default function DashboardClientPage({session}: {session: { session: Sess
                   <span className="font-medium text-blue-700">
                     Email Verified:
                   </span>
-                  <span className="ml-2 text-blue-600">{user.emailVerified ? "Yes" : "No"}</span>
+                  <span className="ml-2 text-blue-600">
+                    {user.emailVerified ? "Yes" : "No"}
+                  </span>
                 </div>
               </div>
             </div>
 
-            {/* Demo Features */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-gray-50 rounded-lg p-6">
-                <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-                  <svg
-                    className="w-6 h-6 text-indigo-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  Social Login
+            {/* Notice Management Section */}
+            <div className="mt-8 mb-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+              
+              {/* Left Column: Form to Add/Edit Notice */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">
+                  {editingNoticeId ? "Edit Notice" : "Add New Notice"}
                 </h3>
-                <p className="text-gray-600 text-sm">
-                  Seamlessly authenticate with Google, GitHub, and other social
-                  providers.
-                </p>
+                <form onSubmit={handleSaveNotice} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Notice Title
+                    </label>
+                    <textarea
+                      value={noticeName}
+                      onChange={(e) => setNoticeName(e.target.value)}
+                      rows={4}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900"
+                      placeholder="Type the notice content..."
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      type="submit"
+                      className="flex-1 inline-flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      {editingNoticeId ? "Update Notice" : "Publish Notice"}
+                    </button>
+                    {editingNoticeId && (
+                      <button
+                        type="button"
+                        onClick={handleCancelEdit}
+                        className="py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none"
+                      >
+                        Cancel
+                      </button>
+                    )}
+                  </div>
+                </form>
               </div>
 
-              <div className="bg-gray-50 rounded-lg p-6">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                  <svg
-                    className="w-6 h-6 text-green-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  User Management
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Manage user accounts, profiles, and authentication settings.
-                </p>
+              {/* Right Column: Existing Notices List */}
+              <div className="md:col-span-2 bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Notice History</h3>
+                {notices.length === 0 ? (
+                  <p className="text-gray-500 text-sm">No notices published yet.</p>
+                ) : (
+                  <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+                    {notices.map((notice) => (
+                      <div
+                        key={notice.id}
+                        className="p-4 bg-white rounded-md border border-gray-200 shadow-sm flex justify-between items-start gap-4"
+                      >
+                        <div className="flex-1">
+                          <p className="text-gray-800 text-sm font-medium whitespace-pre-wrap">
+                            {notice.name}
+                          </p>
+                          <span className="text-[10px] text-gray-400 block mt-1">
+                            {new Date(notice.createdAt).toLocaleString()}
+                          </span>
+                        </div>
+                        <div className="flex gap-2 flex-shrink-0">
+                          <button
+                            onClick={() => {
+                              setEditingNoticeId(notice.id);
+                              setNoticeName(notice.name);
+                            }}
+                            className="text-xs font-semibold text-indigo-600 hover:text-indigo-900"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(notice.id)}
+                            className="text-xs font-semibold text-red-600 hover:text-red-900"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              <div className="bg-gray-50 rounded-lg p-6">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                  <svg
-                    className="w-6 h-6 text-purple-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  Secure Access
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Protected routes and secure authentication flow with
-                  better-auth.
-                </p>
-              </div>
-            </div>
-
-            {/* Demo Actions */}
-            <div className="mt-8 p-6 bg-gray-50 rounded-lg">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Try These Actions
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                <button
-                  onClick={() => alert("Mock action: Profile updated!")}
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
-                >
-                  Update Profile
-                </button>
-                <button
-                  onClick={() => alert("Mock action: Settings saved!")}
-                  className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
-                >
-                  Save Settings
-                </button>
-                <button
-                  onClick={() => alert("Mock action: Data exported!")}
-                  className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
-                >
-                  Export Data
-                </button>
-              </div>
             </div>
 
             {/* Navigation */}

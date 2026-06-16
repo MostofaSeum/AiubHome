@@ -1,3 +1,5 @@
+"use server";
+
 import connectDB from "@/lib/db";
 import Notice from "@/lib/models/notice";
 import { success } from "better-auth";
@@ -21,10 +23,10 @@ export async function getNotice() {
 
 //create a new notice
 
-export async function createNotice(name: string, userID: string) {
+export async function createNotice(name: string, userId: string) {
   await connectDB();
   try {
-    const newNotice = await Notice.create({ name, userID });
+    const newNotice = await Notice.create({ name, userId });
     revalidatePath("/dashboard");
     revalidatePath("/");
     return {
@@ -37,7 +39,7 @@ export async function createNotice(name: string, userID: string) {
   }
 }
 
-//update and existing notice
+//update an existing notice
 
 export async function updateNotice(id: string, name: string) {
   await connectDB();
