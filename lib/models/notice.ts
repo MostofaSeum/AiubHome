@@ -31,4 +31,8 @@ const NoticeSchema = new Schema<INotice>({
 
 );
 
-export default mongoose.models.Notice || mongoose.model<INotice>("Notice",NoticeSchema);
+if (mongoose.models.Notice) {
+  delete mongoose.models.Notice;
+}
+
+export default mongoose.model<INotice>("Notice", NoticeSchema);

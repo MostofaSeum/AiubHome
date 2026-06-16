@@ -1,9 +1,7 @@
 "use client";
 import { signOut } from "@/lib/actions/auth-actions";
-import { auth } from "@/lib/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
 import { Session, User } from "better-auth";
 import { useState } from "react";
 import { createNotice, deleteNotice, updateNotice } from "@/lib/actions/notice-action";
@@ -17,7 +15,7 @@ export default function DashboardClientPage({
 }) {
   const [notices, setNotices] = useState(initialNotices || []);
   const [noticeName, setNoticeName] = useState("");
-  const [noticeStatus, setNoticeStatus] = useState("draft");
+  const [noticeStatus, setNoticeStatus] = useState<"draft" | "published">("draft");
   const [editingNoticeId, setEditingNoticeId] = useState<string | null>(null);
   const user = session.user;
   const router = useRouter();
@@ -183,7 +181,7 @@ const handleCancelEdit = () => {
                     </label>
                     <select
                       value={noticeStatus}
-                      onChange={(e) => setNoticeStatus(e.target.value)}
+                      onChange={(e) => setNoticeStatus(e.target.value as "draft" | "published")}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900"
                     >
                       <option value="draft">Draft (Hidden)</option>
@@ -195,7 +193,7 @@ const handleCancelEdit = () => {
                       type="submit"
                       className="flex-1 inline-flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                      {editingNoticeId ? "Update Notice" : "Publish Notice"}
+                      {editingNoticeId ? "Update Notice" : "Save Notice"}
                     </button>
                     {editingNoticeId && (
                       <button
@@ -246,7 +244,7 @@ const handleCancelEdit = () => {
                             onClick={() => {
                               setEditingNoticeId(notice.id);
                               setNoticeName(notice.name);
-                              setNoticeStatus(notice.status || "draft");
+                              setNoticeStatus((notice.status as "draft" | "published") || "draft");
                             }}
                             className="text-xs font-semibold text-indigo-600 hover:text-indigo-900"
                           >

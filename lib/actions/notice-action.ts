@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 
 //fetch all notice from database
 export async function getNotice(filter: any = {}) {
+  await connectDB();
   try {
     const notices = await Notice.find(filter).sort({ createdAt: -1 });
     return notices.map((notice) => ({
@@ -24,7 +25,7 @@ export async function getNotice(filter: any = {}) {
 
 //create a new notice
 
-export async function createNotice(name: string, userId: string, status: string = 'draft') {
+export async function createNotice(name: string, userId: string, status: 'draft' | 'published' = 'draft') {
   await connectDB();
   try {
     const newNotice = await Notice.create({ name, userId, status });
@@ -42,7 +43,7 @@ export async function createNotice(name: string, userId: string, status: string 
 
 //update an existing notice
 
-export async function updateNotice(id: string, name: string, status: string) {
+export async function updateNotice(id: string, name: string, status: 'draft' | 'published') {
   await connectDB();
   try {
     const updateNotice = await Notice.findByIdAndUpdate(
