@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getNotice } from "@/lib/actions/notice-action";
 import { getNewsEvents } from "@/lib/actions/news-event-action";
+import { getTalentStories } from "@/lib/actions/talent-story-action";
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({
@@ -15,11 +16,13 @@ export default async function DashboardPage() {
   }
   const notices = await getNotice();
   const newsEvents = await getNewsEvents();
+  const talentStories = await getTalentStories();
   return (
     <DashboardClientPage
       session={session}
       initialNotices={notices || []}
       initialNewsEvents={newsEvents || []}
+      initialTalentStories={talentStories || []}
     />
   );
 }

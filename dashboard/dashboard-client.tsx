@@ -6,16 +6,19 @@ import { Session, User } from "better-auth";
 import { useState } from "react";
 import { createNotice, deleteNotice, updateNotice } from "@/lib/actions/notice-action";
 import { createNewsEvents, deleteNewsEvents, updateNewsEvents } from "@/lib/actions/news-event-action";
+import { createTalentStory, deleteTalentStory, updateTalentStory } from "@/lib/actions/talent-story-action";
 import Image from "next/image";
 
 export default function DashboardClientPage({
   session,
   initialNotices,
   initialNewsEvents,
+  initialTalentStories,
 }: {
   session: { session: Session; user: User };
   initialNotices: any[];
   initialNewsEvents: any[];
+  initialTalentStories: any[];
 }) {
   const [notices, setNotices] = useState(initialNotices || []);
   const [noticeName, setNoticeName] = useState("");
@@ -30,6 +33,15 @@ export default function DashboardClientPage({
   const [editingEventId, setEditingEventId] = useState<string | null>(null);
   const [editingEventImageUrl, setEditingEventImageUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+
+  // Talents got spark state
+  const [talentStories, setTalentStories] = useState(initialTalentStories || []);
+  const [talentTitle, setTalentTitle] = useState("");
+  const [talentStatus, setTalentStatus] = useState<"draft" | "published">("draft");
+  const [talentFile, setTalentFile] = useState<File | null>(null);
+  const [editingTalentId, setEditingTalentId] = useState<string | null>(null);
+  const [editingTalentImageUrl, setEditingTalentImageUrl] = useState<string | null>(null);
+  const [uploadingTalent, setUploadingTalent] = useState(false);
 
   const user = session.user;
   const router = useRouter();
@@ -200,6 +212,112 @@ export default function DashboardClientPage({
     setEventFile(null);
     setEventStatus("draft");
   };
+
+  // Save talent story handle
+  const handleSaveTalentStory = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!talentTitle.trim()) {
+      return;
+    }
+
+    setUploadingTalent(true);
+    try {
+      let finalImageUrl = editingTalentImageUrl || "";
+
+      // If a file is selected, upload it first
+      if (talentFile) {
+        const formData = new FormData();
+        formData.append("file", talentFile);
+
+        const uploadRes = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await uploadRes.json();
+        if (data.success) {
+          finalImageUrl = data.url;
+        } else {
+          alert("Image upload failed: " + (data.error || "Unknown error"));
+          setUploadingTalent(false);
+          return;
+        }
+      }
+
+      if (!finalImageUrl) {
+        alert("Please select a picture to upload.");
+        setUploadingTalent(false);
+        return;
+      }
+
+      if (editingTalentId) {
+        const res = await updateTalentStory(editingTalentId, talentTitle, finalImageUrl, user.id, talentStatus);
+        if (res?.success && res.story) {
+          setTalentStories(
+            talentStories.map((s) =>
+              s.id === editingTalentId
+                ? { ...s, title: talentTitle, imageUrl: finalImageUrl, status: talentStatus }
+                : s
+            )
+          );
+          setEditingTalentId(null);
+          setEditingTalentImageUrl(null);
+          setTalentTitle("");
+          setTalentFile(null);
+          setTalentStatus("draft");
+        } else {
+          alert("Failed to update talent story");
+        }
+      } else {
+        const res = await createTalentStory(talentTitle, finalImageUrl, user.id, talentStatus);
+        if (res.success && res.story) {
+          setTalentStories([
+            {
+              id: res.story._id,
+              title: res.story.title,
+              imageUrl: res.story.imageUrl,
+              userId: res.story.userId,
+              status: res.story.status,
+              createdAt: new Date().toString(),
+            },
+            ...talentStories
+          ]);
+          setTalentTitle("");
+          setTalentFile(null);
+          setTalentStatus("draft");
+        } else {
+          alert("Failed to create talent story");
+        }
+      }
+    } catch (error) {
+      console.error("Error saving talent story:", error);
+      alert("Something went wrong");
+    } finally {
+      setUploadingTalent(false);
+    }
+  };
+
+  // Delete talent story
+  const handleDeleteTalentStory = async (id: string) => {
+    if (confirm("Are you sure you want to delete this talent story?")) {
+      const res = await deleteTalentStory(id);
+      if (res.success) {
+        setTalentStories(talentStories.filter((s) => s.id !== id));
+      }
+    }
+  };
+
+  // Cancel edit talent story
+  const handleCancelTalentEdit = () => {
+    setEditingTalentId(null);
+    setEditingTalentImageUrl(null);
+    setTalentTitle("");
+    setTalentFile(null);
+    setTalentStatus("draft");
+  };
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -512,6 +630,149 @@ export default function DashboardClientPage({
                           </button>
                           <button
                             onClick={() => handleDeleteNewsEvent(ev.id)}
+                            className="text-xs font-semibold text-red-600 hover:text-red-900"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+            </div>
+
+            {/* Talents Got Sparked Management Section */}
+            <div className="mt-12 mb-8 pt-8 border-t border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-6">
+              
+              {/* Left Column: Form to Add/Edit Story */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">
+                  {editingTalentId ? "Edit Talent Story" : "Add Talent Story"}
+                </h3>
+                <form onSubmit={handleSaveTalentStory} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Story Title
+                    </label>
+                    <textarea
+                      value={talentTitle}
+                      onChange={(e) => setTalentTitle(e.target.value)}
+                      required
+                      rows={3}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900"
+                      placeholder="Title of the achievement/story..."
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Picture
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => setTalentFile(e.target.files?.[0] || null)}
+                      required={!editingTalentId}
+                      className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                    />
+                    {editingTalentImageUrl && (
+                      <p className="mt-2 text-xs text-gray-500 truncate">
+                        Current image: {editingTalentImageUrl}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Status
+                    </label>
+                    <select
+                      value={talentStatus}
+                      onChange={(e) => setTalentStatus(e.target.value as "draft" | "published")}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900"
+                    >
+                      <option value="draft">Draft (Hidden)</option>
+                      <option value="published">Published (Public)</option>
+                    </select>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      type="submit"
+                      disabled={uploadingTalent}
+                      className="flex-1 inline-flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                    >
+                      {uploadingTalent ? "Uploading..." : editingTalentId ? "Update Story" : "Save Story"}
+                    </button>
+                    {editingTalentId && (
+                      <button
+                        type="button"
+                        onClick={handleCancelTalentEdit}
+                        className="py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none"
+                      >
+                        Cancel
+                      </button>
+                    )}
+                  </div>
+                </form>
+              </div>
+
+              {/* Right Column: Existing Talent Stories List */}
+              <div className="md:col-span-2 bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Talents Got Sparked History</h3>
+                {talentStories.length === 0 ? (
+                  <p className="text-gray-500 text-sm">No stories uploaded yet.</p>
+                ) : (
+                  <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+                    {talentStories.map((story) => (
+                      <div
+                        key={story.id}
+                        className="p-4 bg-white rounded-md border border-gray-200 shadow-sm flex justify-between items-center gap-4"
+                      >
+                        <div className="flex items-center gap-4 min-w-0">
+                          {story.imageUrl && (
+                            <div className="relative w-16 h-16 rounded overflow-hidden flex-shrink-0 border bg-gray-100">
+                              <Image
+                                src={story.imageUrl}
+                                alt={story.title}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                          )}
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span
+                                className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
+                                  story.status === "published"
+                                    ? "bg-green-100 text-green-800"
+                                    : "bg-gray-100 text-gray-800"
+                                }`}
+                              >
+                                {story.status === "published" ? "Published" : "Draft"}
+                              </span>
+                              <span className="text-[10px] text-gray-400">
+                                {new Date(story.createdAt).toLocaleString()}
+                              </span>
+                            </div>
+                            <p className="text-gray-800 text-sm font-medium truncate">
+                              {story.title}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex gap-2 flex-shrink-0">
+                          <button
+                            onClick={() => {
+                              setEditingTalentId(story.id);
+                              setTalentTitle(story.title);
+                              setEditingTalentImageUrl(story.imageUrl);
+                              setTalentStatus((story.status as "draft" | "published") || "draft");
+                            }}
+                            className="text-xs font-semibold text-indigo-600 hover:text-indigo-900"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDeleteTalentStory(story.id)}
                             className="text-xs font-semibold text-red-600 hover:text-red-900"
                           >
                             Delete

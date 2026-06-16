@@ -16,11 +16,14 @@ import StrategicPartners from "@/homepage/sections/StrategicPartners/StrategicPa
 import EducationalPartners from "@/homepage/sections/EducationalPartners/EducationalPartners";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { getTalentStories } from "@/lib/actions/talent-story-action";
 
 export default async function Home() {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
+
+  const talentStories = await getTalentStories();
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-white">
@@ -32,7 +35,7 @@ export default async function Home() {
         <NewsAndEvents />
         <Faculties />
         <DiscoverOurCampus />
-        <TalentsGotSparked />
+        <TalentsGotSparked initialStories={talentStories || []} />
         <Apply />
         <FactsbAndFigures />
         <CampusLife />
