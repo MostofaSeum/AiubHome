@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "American International University-Bangladesh (AIUB)",
     description:
-      "I edited this website. This is not the official website. Visit the official website for actual info.",
+      "A personal project, recreating the AIUB homepage to test front-end development skills. This is an unofficial clone and not the official website.",
     images: ["/images/aiub-logo.png"],
   },
   robots: {
