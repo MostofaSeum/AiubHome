@@ -20,6 +20,7 @@ import { getTalentStories } from "@/lib/actions/talent-story-action";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://aiub-home.vercel.app"),
   title:
     "American International University-Bangladesh (AIUB) | Where Leaders Are Created",
   description:
@@ -43,12 +44,19 @@ export const metadata: Metadata = {
     siteName: "AIUB",
     locale: "en_US",
     type: "website",
+    images:[{
+      url:"/images/aiub-logo.png",
+      height:630,
+      width:1200,
+      alt:"AIUB"
+    }]
   },
   twitter: {
     card: "summary_large_image",
     title: "American International University-Bangladesh (AIUB)",
     description:
       "Explore AIUB's programs, notices, admissions, and campus life on clonned web portal.",
+    images: ["/images/aiub-logo.png"],
   },
   alternates: {
     canonical: "https://aiub-home.vercel.app/",
