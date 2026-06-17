@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   title:
     "American International University-Bangladesh (AIUB) | Where Leaders Are Created",
   description:
-    "American International University-Bangladesh (AIUB) is a premier private university committed to excellence in higher education. Explore our diverse undergraduate and graduate programs, official notices, faculties, research, and campus life.",
+    "I just tried to recreate the AIUB homepage to try my skills. This is not the official website.",
   keywords: [
     "AIUB",
     "American International University-Bangladesh",
@@ -33,29 +33,31 @@ export const metadata: Metadata = {
     "AIUB Programs",
     "AIUB Notice Board",
     "AIUB Campus",
-    "Higher Education Bangladesh"
+    "Higher Education Bangladesh",
   ],
   openGraph: {
     title:
       "American International University-Bangladesh (AIUB) | Where Leaders Are Created",
     description:
-      "Explore AIUB's programs, notices, admissions, and campus life on the official web portal.",
+      "I just tried to recreate the AIUB homepage to try my skills. This is not the official website.",
     url: "https://aiub-home.vercel.app/",
     siteName: "AIUB",
     locale: "en_US",
     type: "website",
-    images:[{
-      url:"/images/aiub-logo.png",
-      height:630,
-      width:1200,
-      alt:"AIUB"
-    }]
+    images: [
+      {
+        url: "/images/aiub-logo.png",
+        height: 630,
+        width: 1200,
+        alt: "AIUB",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "American International University-Bangladesh (AIUB)",
     description:
-      "Explore AIUB's programs, notices, admissions, and campus life on clonned web portal.",
+      "I edited this website. This is not the official website. Visit the official website for actual info.",
     images: ["/images/aiub-logo.png"],
   },
   alternates: {
