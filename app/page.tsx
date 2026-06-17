@@ -32,8 +32,7 @@ export const metadata: Metadata = {
     "AIUB Programs",
     "AIUB Notice Board",
     "AIUB Campus",
-    "Higher Education Bangladesh",
-    "AIUB Vercel",
+    "Higher Education Bangladesh"
   ],
   openGraph: {
     title:
@@ -49,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "American International University-Bangladesh (AIUB)",
     description:
-      "Explore AIUB's programs, notices, admissions, and campus life on the official web portal.",
+      "Explore AIUB's programs, notices, admissions, and campus life on clonned web portal.",
   },
   alternates: {
     canonical: "https://aiub-home.vercel.app/",
