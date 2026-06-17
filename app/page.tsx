@@ -17,6 +17,44 @@ import EducationalPartners from "@/homepage/sections/EducationalPartners/Educati
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { getTalentStories } from "@/lib/actions/talent-story-action";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title:
+    "American International University-Bangladesh (AIUB) | Where Leaders Are Created",
+  description:
+    "American International University-Bangladesh (AIUB) is a premier private university committed to excellence in higher education. Explore our diverse undergraduate and graduate programs, official notices, faculties, research, and campus life.",
+  keywords: [
+    "AIUB",
+    "American International University-Bangladesh",
+    "University in Bangladesh",
+    "AIUB Admission",
+    "AIUB Programs",
+    "AIUB Notice Board",
+    "AIUB Campus",
+    "Higher Education Bangladesh",
+    "AIUB Vercel",
+  ],
+  openGraph: {
+    title:
+      "American International University-Bangladesh (AIUB) | Where Leaders Are Created",
+    description:
+      "Explore AIUB's programs, notices, admissions, and campus life on the official web portal.",
+    url: "https://aiub-home.vercel.app/",
+    siteName: "AIUB",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "American International University-Bangladesh (AIUB)",
+    description:
+      "Explore AIUB's programs, notices, admissions, and campus life on the official web portal.",
+  },
+  alternates: {
+    canonical: "https://aiub-home.vercel.app/",
+  },
+};
 
 export default async function Home() {
   const session = await auth.api.getSession({

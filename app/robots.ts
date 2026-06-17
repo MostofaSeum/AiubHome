@@ -1,20 +1,15 @@
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "http://localhost:3000";
+  const baseUrl = "https://aiub-home.vercel.app";
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/contact/", "/api/"],
-      },
-      {
-        userAgent: "Googlebot",
-        allow: "/",
-        disallow: ["/terms-and-conditions/"],
+        disallow: ["/api/"],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
   };
-}
+}
