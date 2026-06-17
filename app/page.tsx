@@ -60,6 +60,18 @@ export const metadata: Metadata = {
       "I edited this website. This is not the official website. Visit the official website for actual info.",
     images: ["/images/aiub-logo.png"],
   },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
   alternates: {
     canonical: "https://aiub-home.vercel.app/",
   },
