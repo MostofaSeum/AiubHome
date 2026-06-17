@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   title:
     "American International University-Bangladesh (AIUB) | Where Leaders Are Created",
   description:
-    "I just tried to recreate the AIUB homepage to try my skills. This is not the official website.",
+    "A personal project, recreating the AIUB homepage to test front-end development skills. This is an unofficial clone and not the official website.",
   keywords: [
     "AIUB",
     "American International University-Bangladesh",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title:
       "American International University-Bangladesh (AIUB) | Where Leaders Are Created",
     description:
-      "I just tried to recreate the AIUB homepage to try my skills. This is not the official website.",
+      "A personal project, recreating the AIUB homepage to test front-end development skills. This is an unofficial clone and not the official website.",
     url: "https://aiub-home.vercel.app/",
     siteName: "AIUB",
     locale: "en_US",
